@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>製品検索</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- ヘッダー -->
+    <div id="header"></div>
+
+    <main class="container mt-4">
+        <!-- タイトルバー -->
+        <h2 class="text-primary fw-bold p-2 rounded">製品検索一覧</h2>
+        <!-- 検索条件 -->
+        <div class="accordion mt-3" id="searchAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                        aria-controls="panelsStayOpen-collapseOne">
+                        検索条件
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                        <form class="row g-1">
+                            <div class="row g-1">
+                                <div class="col-sm">
+                                    <input type="text" class="form-control" placeholder="メーカー" aria-label="Maker">
+                                </div>
+                                <div class="col-sm">
+                                    <input type="text" class="form-control" placeholder="型番" aria-label="ItemNo">
+                                </div>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" placeholder="製品名" aria-label="ItemName">
+                                </div>
+                            </div>
+                            <div class="row g-1">
+                                <div class="col-sm">
+                                    <select class="form-select" aria-label="Genre">
+                                        <option selected>ジャンル</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <select class="form-select" aria-label="Scale">
+                                        <option selected>スケール</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" placeholder="シリーズ" aria-label="ItemName">
+                                </div>
+                            </div>
+                            <div class="row g-1">
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="番組シリーズ" aria-label="ItemName">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="機体名" aria-label="ItemName">
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button class="btn btn-primary me-md-2" type="button">Button</button>
+                                <button class="btn btn-primary" type="button">Button</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 検索結果テーブル -->
+        <div class="search-result table-responsive mt-3">
+            <table class="table table-striped table-hover table-sm text-nowrap">
+                <colgroup>
+                    <col style="width: 5%;"> <!-- 行番号列 -->
+                    <col style="border-right: 1px solid #ddd;"> <!-- 仕切り -->
+                    <col style="width: 5%;"> <!-- 在庫数列 -->
+                    <!-- 以下、他の列の幅の指定 -->
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col"></th> <!-- 仕切り列 -->
+                        <th scope="col">在庫数</th>
+                        <th scope="col">メーカー</th>
+                        <th scope="col">型番</th>
+                        <th scope="col">製品名</th>
+                        <th scope="col">ジャンル</th>
+                        <th scope="col">スケール</th>
+                        <th scope="col">シリーズ</th>
+                        <th scope="col">原作名</th>
+                        <th scope="col">価格</th>
+                        <th scope="col">入出庫</th>
+                        <th scope="col">編集</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <th scope="col"></th> <!-- 仕切り列 -->
+                        <td>20</td>
+                        <td>タミヤ</td>
+                        <td>99999</td>
+                        <td>タイガーⅠ</td>
+                        <td>AFV</td>
+                        <td>1/35</td>
+                        <td></td>
+                        <td></td>
+                        <td>3,500</td>
+                        <td><a class="btn btn-primary" href="inout.html">入出庫</a></td>
+                        <td><a class="btn btn-primary" href="item-master.html">編集</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <th scope="col"></th> <!-- 仕切り列 -->
+                        <td>100</td>
+                        <td>ハセガワ</td>
+                        <td>A99</td>
+                        <td>F-14A Tomcat</td>
+                        <td>飛行機</td>
+                        <td>1/48</td>
+                        <td></td>
+                        <td>A88</td>
+                        <td>4,800</td>
+                        <td><a class="btn btn-primary" href="inout.html">入出庫</a></td>
+                        <td><a class="btn btn-primary" href="item-master.html">編集</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <th scope="col"></th> <!-- 仕切り列 -->
+                        <td>8</td>
+                        <td>アオシマ</td>
+                        <td>A99</td>
+                        <td>高雄</td>
+                        <td>艦船</td>
+                        <td>1/350</td>
+                        <td></td>
+                        <td>KK</td>
+                        <td>7,700</td>
+                        <td><a class="btn btn-primary" href="inout.html">入出庫</a></td>
+                        <td><a class="btn btn-primary" href="item-master.html">編集</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <th scope="col"></th> <!-- 仕切り列 -->
+                        <td>3</td>
+                        <td>バンダイ</td>
+                        <td>EEE</td>
+                        <td>VF-25</td>
+                        <td>ロボット</td>
+                        <td>1/72</td>
+                        <td></td>
+                        <td>マクロスF</td>
+                        <td>7,700</td>
+                        <td><a class="btn btn-primary" href="inout.html">入出庫</a></td>
+                        <td><a class="btn btn-primary" href="item-master.html">編集</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- フッター -->
+    <div id="footer"></div>
+
+    <!-- Additional Scripts -->
+    <script src="js/script1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
