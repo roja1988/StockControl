@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>製品検索</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<!-- ヘッダー -->
+	<header class="bg-light p-3">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center">
+				<h1 class="text-primary fw-bold">StockControl</h1>
+				<div>
+					<button class="btn btn-primary" type="button">ログアウト</button>
+				</div>
+			</div>
+			<nav>
+				<ul class="nav nav-pills">
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/items}">製品検索</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/items/itemedit}">製品マスター</a></li>
+					<!--
+                <li class="nav-item">
+                    <a class="nav-link" href="area-search.html">エリア検索</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="user-search.html">ユーザー検索</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="log.html">ログ検索</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                </li>
+                -->
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+
+
+
+	<main class="container mt-4">
+		<!-- タイトルバー -->
+		<h2 class="text-primary fw-bold p-2 rounded">製品検索一覧</h2>
+		<!-- 検索条件 -->
+		<div class="accordion mt-3" id="searchAccordion">
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button" type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+						aria-controls="panelsStayOpen-collapseOne">検索条件</button>
+				</h2>
+				<div id="panelsStayOpen-collapseOne"
+					class="accordion-collapse collapse show">
+					<div class="accordion-body">
+						<form class="row g-1">
+							<div class="row g-1">
+								<div class="col-sm">
+									<input type="text" class="form-control" placeholder="メーカー"
+										aria-label="Maker">
+								</div>
+								<div class="col-sm">
+									<input type="text" class="form-control" placeholder="型番"
+										aria-label="ItemNo">
+								</div>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" placeholder="製品名"
+										aria-label="ItemName">
+								</div>
+							</div>
+							<div class="row g-1">
+								<div class="col-sm">
+									<select class="form-select" aria-label="Genre">
+										<option selected>ジャンル</option>
+										<option value="1">One</option>
+										<option value="2">Two</option>
+										<option value="3">Three</option>
+									</select>
+								</div>
+								<div class="col-sm">
+									<select class="form-select" aria-label="Scale">
+										<option selected>スケール</option>
+										<option value="1">One</option>
+										<option value="2">Two</option>
+										<option value="3">Three</option>
+									</select>
+								</div>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" placeholder="シリーズ"
+										aria-label="ItemName">
+								</div>
+							</div>
+							<div class="row g-1">
+								<div class="col-sm-6">
+									<input type="text" class="form-control" placeholder="番組シリーズ"
+										aria-label="ItemName">
+								</div>
+								<div class="col">
+									<input type="text" class="form-control" placeholder="機体名"
+										aria-label="ItemName">
+								</div>
+							</div>
+							<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+								<button class="btn btn-primary me-md-2" type="button">検索</button>
+								<button class="btn btn-primary" type="button">Button</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 検索結果テーブル -->
+		<div class="search-result table-responsive mt-3">
+			<table class="table table-striped table-hover table-sm text-nowrap">
+				<thead>
+					<tr>
+						<th scope="col">在庫数</th>
+						<th scope="col">メーカー</th>
+						<th scope="col">型番</th>
+						<th scope="col">製品名</th>
+						<th scope="col">ジャンル</th>
+						<th scope="col">スケール</th>
+						<th scope="col">シリーズ</th>
+						<th scope="col">原作名</th>
+						<th scope="col">価格</th>
+						<th scope="col">入出庫</th>
+						<th scope="col">編集</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item : ${items}">
+						<td>35</td>
+						<td>[[${item.maker}]]</td>
+						<td>[[${item.modelNumber}]]</td>
+						<td>[[${item.itemName}]]</td>
+						<td>[[${item.genre}]]</td>
+						<td>[[${item.scale}]]</td>
+						<td>[[${item.series}]]</td>
+						<td>[[${item.original}]]</td>
+						<td>[[${item.price}]]</td>
+						<td><a class="btn btn-primary" href="inout.html">入出庫</a></td>
+						<td><a class="btn btn-primary" href="item-master.html">編集</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</main>
+
+	<!-- フッター -->
+	<footer class="bg-light p-3">
+		<div class="container">
+			<div class="text-center">
+				<p>&copy; 2024 StockControl. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+
+	<!-- Additional Scripts -->
+	<script src="js/script1.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

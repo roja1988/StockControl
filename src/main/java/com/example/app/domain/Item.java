@@ -30,11 +30,20 @@ public class Item {
 	// メーカーID
 	private int makerId;
 	
+	// メーカー
+	private String maker;
+	
 	// ジャンルID
 	private int genreId;
 	
+	// ジャンルID
+	private String genre;
+	
 	// スケールID
 	private int scaleId;
+	
+	// スケールID
+	private String scale;
 	
 	// シリーズ
 	@Size(max=45)

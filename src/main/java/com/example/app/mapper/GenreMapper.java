@@ -10,7 +10,7 @@ import com.example.app.domain.Genre;
  *
  */
 
-public interface GenreMappar {
+public interface GenreMapper {
 
 	List<Genre> selectAll() throws Exception;
 }
