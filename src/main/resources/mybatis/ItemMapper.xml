@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.ItemMapper">
+	
+<!-- SQL アイテムマスター -->
+	
+	<!-- 全件検索, 上限100件 -->
+	<select id="selectAll" resultType="Item">
+		SELECT
+			item_id,
+			model_number,
+			item_name,
+			maker_id,
+			genre_id,
+			scale_id,
+			series,
+			original,
+			price,
+			note,
+			delete_flg,
+		FROM master_item
+		WHERE delete_flg = 0
+		LIMIT 100
+	</select>
+
+	<!-- 複数条件による検索 -->
+	<select id="ConditionalSelect" resultType="Item">
+		SELECT * FROM master_item
+		<where>
+			<!-- 条件1: 型番が指定されている場合 -->
+			<if test="modelNumber != null and modelNumber != ''">
+				AND model_number LIKE CONCAT('%', #{modelNumber}, '%')
+			</if>
+
+			<!-- 条件2: 製品名が指定されている場合 -->
+			<if test="itemName != null and itemName != ''">
+				AND item_name LIKE CONCAT('%', #{itemName}, '%')
+			</if>
+
+			<!-- 条件3: メーカーID (UIではメーカー) が指定されている場合 -->
+			<if test="makerId != null">
+				AND maker_id = #{makerId}
+			</if>
+
+			<!-- 条件4: ジャンルID (UIではジャンル) が指定されている場合 -->
+			<if test="genreId != null">
+				AND genre_id = #{genreId}
+			</if>
+
+			<!-- 条件5: スケールID (UIではスケール) が指定されている場合 -->
+			<if test="scaleId != null">
+				AND scale_id = #{scaleId}
+			</if>
+
+			<!-- 条件6: シリーズが指定されている場合 -->
+			<if test="series != null and series != ''">
+				AND series LIKE CONCAT('%', #{series}, '%')
+			</if>
+
+			<!-- 条件6: 原作名が指定されている場合 -->
+			<if test="original != null and original != ''">
+				AND series LIKE CONCAT('%', #{original}, '%')
+			</if>
+
+			<!-- 固定条件: delete_flg=0 -->
+			AND delete_flg = 0
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="Item">
+		INSERT INTO master_item VALUES
+		(
+			NULL,
+			model_number = #{modelNumber},
+			item_name = #{itemName},
+			maker_id = #{makerId},
+			genre_id = #{genreId},
+			scale_id = #{scaleId},
+			series = #{series},
+			original = #{original},
+			price = #{price},
+			note = #{note},
+			delete_flg = 0,
+			register_date = NOW(),
+			register_user_id = 'user'
+			update_date = now(),
+			update_user_id = 'user'
+		)
+	</insert>
+
+	<update id="update" parameterType="Item">
+		UPDATE master_item
+		SET
+			model_number = #{modelNumber},
+			item_name = #{itemName},
+			maker_id = #{makerId},
+			genre_id = #{genreId},
+			scale_id = #{scaleId},
+			series = #{series},
+			original = #{original},
+			price = #{price},
+			note = #{note},
+			update_date = now(),
+			update_user_id = 'user'
+		WHERE item_id = #{itemId}
+	</update>
+
+	<delete id="">
+		DELETE FROM master_item
+		WHERE item_id = #{itemId}
+	</delete>
+
+</mapper>
+
+
+
+
+
+
+
+
