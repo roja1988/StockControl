@@ -38,38 +38,65 @@
 
 	<!-- 複数条件による検索 -->
 	<select id="searchItems" resultType="Item" parameterType="Item">
-		SELECT * FROM master_item
+		SELECT
+		mi.item_id,
+		mi.maker_id,
+		mm.maker,
+		mi.model_number,
+		mi.item_name,
+		mi.genre_id,
+		mg.genre,
+		mi.scale_id,
+		ms.scale,
+		mi.series,
+		mi.original,
+		mi.price,
+		mi.note,
+		mi.delete_flg
+		FROM master_item mi
+		LEFT JOIN
+		master_maker mm
+		ON
+		mi.maker_id = mm.maker_id
+		LEFT JOIN master_genre mg
+		ON
+		mi.genre_id =
+		mg.genre_id
+		LEFT JOIN master_scale ms
+		ON mi.scale_id =
+		ms.scale_id
 		<where>
 			<!-- 条件1: 型番が指定されている場合 -->
-			<if test="modelNumberInput != null and modelNumber != ''">
-				AND model_number LIKE CONCAT('%', #{modelNumberInput}, '%')
+			<if test="modelNumberInput != null and modelNumberInput != ''">
+				AND mi.model_number LIKE CONCAT('%', #{modelNumberInput},
+				'%')
 			</if>
 			<!-- 条件2: 製品名が指定されている場合 -->
-			<if test="itemNameInput != null and itemName != ''">
-				AND item_name LIKE CONCAT('%', #{itemNameInput}, '%')
+			<if test="itemNameInput != null and itemNameInput != ''">
+				AND mi.item_name LIKE CONCAT('%', #{itemNameInput}, '%')
 			</if>
 			<!-- 条件3: メーカーID (UIではメーカー) が指定されている場合 -->
-			<if test="makerIdInput != null">
-				AND maker_id = #{makerIdInput}
+			<if test="makerIdInput != null and makerIdInput != ''">
+				AND mi.maker_id = #{makerIdInput}
 			</if>
 			<!-- 条件4: ジャンルID (UIではジャンル) が指定されている場合 -->
-			<if test="genreIdInput != null">
-				AND genre_id = #{genreIdInput}
+			<if test="genreIdInput != null and genreIdInput != ''">
+				AND mi.genre_id = #{genreIdInput}
 			</if>
 			<!-- 条件5: スケールID (UIではスケール) が指定されている場合 -->
-			<if test="scaleIdInput != null">
-				AND scale_id = #{scaleIdInput}
+			<if test="scaleIdInput != null and scaleIdInput != ''">
+				AND mi.scale_id = #{scaleIdInput}
 			</if>
 			<!-- 条件6: シリーズが指定されている場合 -->
-			<if test="seriesInput != null and series != ''">
-				AND series LIKE CONCAT('%', #{seriesInput}, '%')
+			<if test="seriesInput != null and seriesInput != ''">
+				AND mi.series LIKE CONCAT('%', #{seriesInput}, '%')
 			</if>
 			<!-- 条件6: 原作名が指定されている場合 -->
-			<if test="originalinput != null and originalinput != ''">
-				AND original LIKE CONCAT('%', #{originalinput}, '%')
+			<if test="originalInput != null and originalInput != ''">
+				AND mi.original LIKE CONCAT('%', #{originalInput}, '%')
 			</if>
 			<!-- 固定条件: delete_flg=0 -->
-			AND delete_flg = 0
+			AND mi.delete_flg = 0
 		</where>
 	</select>
 

@@ -32,19 +32,19 @@ public class Item {
 	private String itemName;
 
 	// メーカーID
-	private int makerId;
+	private Integer makerId;
 
 	// メーカー
 	private String maker;
 
 	// ジャンルID
-	private int genreId;
+	private Integer genreId;
 
 	// ジャンルID
 	private String genre;
 
 	// スケールID
-	private int scaleId;
+	private Integer scaleId;
 
 	// スケールID
 	private String scale;
