@@ -1,94 +1,107 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://thymeleaf.org">
-    
+
 <head>
-    <meta lang="ja" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>製品マスター</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+<meta lang="ja" charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[[${title}]]</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
-    <!-- ヘッダー -->
-    <div id="header"></div>
+	<!-- ヘッダー -->
+	<div id="header"></div>
 
-    <main class="container mt-4">
-        <!-- タイトルバー -->
-        <h2 class="text-primary fw-bold p-2 rounded">製品マスター</h2>
-        <!-- コンテンツ -->
-        <form class="p-4 border rounded">
-            <div class="row g-3">
-                <div class="col-md-6 mb-3">
-                    <label for="itemNumber" class="form-label">型番</label>
-                    <input type="text" class="form-control" id="itemNumber" placeholder="型番を入力">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="itemName" class="form-label">製品名</label>
-                    <input type="text" class="form-control" id="itemName" placeholder="製品名を入力">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="manufacturer" class="form-label">メーカー</label>
-                    <select class="form-select" id="manufacturer">
-                        <option selected>メーカーを選択</option>
-                        <option value="1">タミヤ</option>
-                        <option value="2">ハセガワ</option>
-                        <option value="3">アオシマ</option>
-                    </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="genre" class="form-label">ジャンル</label>
-                    <select class="form-select" id="genre">
-                        <option selected>ジャンルを選択</option>
-                        <option value="1">飛行機</option>
-                        <option value="2">艦船</option>
-                        <option value="3">AFV</option>
-                        <option value="4">車</option>
-                    </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="scale" class="form-label">スケール</label>
-                    <select class="form-select" id="scale">
-                        <option selected>スケールを選択</option>
-                        <option value="1">1/48</option>
-                        <option value="2">1/700</option>
-                        <option value="3">1/35</option>
-                        <option value="4">1/43</option>
-                    </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="series" class="form-label">シリーズ</label>
-                    <input type="text" class="form-control" id="series" placeholder="シリーズを入力">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="original" class="form-label">原作品</label>
-                    <input type="text" class="form-control" id="original" placeholder="原作品を入力">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="price" class="form-label">価格</label>
-                    <input type="number" class="form-control" id="price" placeholder="価格を入力">
-                </div>
-                <div class="col-12 mb-3">
-                    <label for="note" class="form-label">備考</label>
-                    <textarea class="form-control" id="note" rows="3"></textarea>
-                </div>
-            </div>
-                <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-primary" type="button">登録</button>
-                    <button class="btn btn-warning" type="button">更新</button>
-                    <button class="btn btn-danger" type="button">削除</button>
-                </div>
-            </div>
-        </form>
-    </main>
+	<main class="container mt-4">
+		<!-- タイトルバー -->
+		<h2 class="text-primary fw-bold p-2 rounded">[[${title}]]</h2>
+		<!-- コンテンツ -->
+		<form class="p-4 border rounded" method="post" th:object="${item}">
+			<!-- エラーメッセージ -->
+			<span th:errors="*{name}" class="error"></span>
+			<div class="row g-3">
+				
+				<div class="col-md-6 mb-3">
+					<label for="itemNumber" class="form-label">型番</label> <input
+						type="text" th:field="*{modelNumber}" class="form-control" id="itemNumber"
+						placeholder="型番を入力">
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="itemName" class="form-label">製品名</label> <input
+						type="text" th:field="*{itemName}" class="form-control" id="itemName"
+						placeholder="製品名を入力">
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="manufacturer" class="form-label">メーカー</label> <select
+						th:field="*{makerId}" class="form-select" id="manufacturer">
+						<option selected>メーカーを選択</option>
+						<option value="1">タミヤ</option>
+						<option value="2">ハセガワ</option>
+						<option value="3">アオシマ</option>
+					</select>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="genre" class="form-label">ジャンル</label> <select
+						th:field="*{genreId}"class="form-select" id="genre">
+						<option selected>ジャンルを選択</option>
+						<option value="1">飛行機</option>
+						<option value="2">艦船</option>
+						<option value="3">AFV</option>
+						<option value="4">車</option>
+					</select>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="scale" class="form-label">スケール</label> <select
+						th:field="*{scaleId}" class="form-select" id="scale">
+						<option selected>スケールを選択</option>
+						<option value="1">1/48</option>
+						<option value="2">1/700</option>
+						<option value="3">1/35</option>
+						<option value="4">1/43</option>
+					</select>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="series" class="form-label">シリーズ</label> <input
+						type="text" th:field="*{series}" class="form-control" id="series" placeholder="シリーズを入力">
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="original" class="form-label">原作品</label> <input
+						type="text" th:field="*{original}" class="form-control" id="original"
+						placeholder="原作品を入力">
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="price" class="form-label">価格</label> <input
+						type="number" th:field="*{price}" class="form-control" id="price" placeholder="価格を入力">
+				</div>
+				<div class="col-12 mb-3">
+					<label for="note" class="form-label">備考</label>
+					<textarea class="form-control" th:field="*{note}" id="note" rows="3"></textarea>
+				</div>
+			</div>
+			<div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
+				<button class="btn btn-primary" type="submit">登録</button>
+				<button class="btn btn-warning" type="button">更新</button>
+				<button class="btn btn-danger" type="button">削除</button>
+			</div>
+		</form>
+	</main>
 
-    <!-- フッター -->
-    <div id="footer"></div>
-    
-    <!-- Additional Scripts -->
-    <script src="js/script1.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- フッター -->
+	<footer class="bg-light p-3">
+		<div class="container">
+			<div class="text-center">
+				<p>&copy; 2024 StockControl. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+
+	<!-- Additional Scripts -->
+	<script src="js/script1.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -17,6 +17,10 @@ public interface ItemSearchService {
 
 	List<Scale> getScaleList() throws Exception;
 	
-	List<Item> searchItems(Item searchForm) throws Exception; // 追加
+	List<Item> searchItems(Item searchForm) throws Exception;
+	
+	Item getItemByItemId(Integer itemId) throws Exception;
+	
+	void editItem(Item item) throws Exception;
 
 }

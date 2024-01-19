@@ -14,6 +14,7 @@ public interface ItemMapper {
 
 	List<Item> selectAll() throws Exception;
 	List<Item> searchItems(Item item) throws Exception;
+	Item selectByItemId(Integer itemId) throws Exception;
 	void insert(Item item) throws Exception;
 	void update(Item item) throws Exception;
 	void delete(Item item) throws Exception;

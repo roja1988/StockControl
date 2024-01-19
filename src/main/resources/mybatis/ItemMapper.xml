@@ -100,6 +100,39 @@
 		</where>
 	</select>
 
+	<select id="selectByItemId" parameterType="int"
+		resultType="Item">
+		SELECT
+		mi.item_id,
+		mi.maker_id,
+		mm.maker,
+		mi.model_number,
+		mi.item_name,
+		mi.genre_id,
+		mg.genre,
+		mi.scale_id,
+		ms.scale,
+		mi.series,
+		mi.original,
+		mi.price,
+		mi.note,
+		mi.delete_flg
+		FROM master_item mi
+		LEFT JOIN
+		master_maker mm
+		ON
+		mi.maker_id = mm.maker_id
+		LEFT JOIN master_genre mg
+		ON
+		mi.genre_id =
+		mg.genre_id
+		LEFT JOIN master_scale ms
+		ON mi.scale_id =
+		ms.scale_id
+		WHERE
+		mi.item_id = #{itemId}
+	</select>
+
 	<insert id="insert" parameterType="Item">
 		INSERT INTO master_item VALUES
 		(

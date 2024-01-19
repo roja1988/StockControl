@@ -56,5 +56,16 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	public List<Item> searchItems(Item searchForm) throws Exception {
 		return itemMapper.searchItems(searchForm);
 	}
-
+	
+	// 製品マスター個別の表示
+	@Override
+	public Item getItemByItemId(Integer itemId) throws Exception {
+		return itemMapper.selectByItemId(itemId);
+	}
+	
+	// 製品マスターの編集更新
+	@Override
+	public void editItem(Item item) throws Exception {
+		itemMapper.update(item);
+	}
 }

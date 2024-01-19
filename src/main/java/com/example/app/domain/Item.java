@@ -19,7 +19,7 @@ public class Item {
 	 */
 	// 製品ID
 	@NotNull
-	private int itemId;
+	private Integer itemId;
 
 	// 型番
 	@NotBlank
@@ -58,7 +58,7 @@ public class Item {
 	private String original;
 
 	// 価格
-	private int price;
+	private Integer price;
 
 	// 備考
 	@Size(max = 100)
