@@ -1,13 +1,14 @@
 package com.example.app.controller;
 
-import java.util.List; // この行を追加
-import java.util.Map;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.app.domain.Item;
 import com.example.app.service.ItemSearchService;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ItemSearchController {
 
+	@Autowired
 	public final ItemSearchService itemService;
 
 	@GetMapping
@@ -26,18 +28,22 @@ public class ItemSearchController {
 		model.addAttribute("items", itemService.getItemList());
 		return "items/itemlist";
 	}
-
+	
 	@GetMapping("/items")
-	public String searchItems(@RequestParam Map<String, String> params, Model model) throws Exception {
-		List<Item> items = itemService.searchItems(
-				params.get("maker"),
-				params.get("itemNo"),
-				params.get("itemName"),
-				params.get("genre"),
-				params.get("scale"),
-				params.get("series"),
-				params.get("original"));
-		model.addAttribute("items", items);
-		return "items";
+	public String searchItems(@ModelAttribute("item") Item item, BindingResult bindingResult, Model model) throws Exception {
+	    List<Item> items = itemService.searchItems(
+	        item.getMakerInput(),
+	        item.getItemNoInput(),
+	        item.getItemNameInput(),
+	        item.getGenreInput(),
+	        item.getScaleInput(),
+	        item.getSeriesInput(),
+	        item.getOriginalInput());
+
+	    model.addAttribute("items", items);
+	    model.addAttribute("org.springframework.validation.BindingResult.item", bindingResult); // バインディング結果をモデルに追加
+
+	    return "items";
 	}
+
 }

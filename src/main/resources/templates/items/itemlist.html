@@ -21,8 +21,7 @@
 			</div>
 			<nav>
 				<ul class="nav nav-pills">
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/items}">製品検索</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/items}">製品検索</a></li>
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/items/itemedit}">製品マスター</a></li>
 					<!--
@@ -62,24 +61,25 @@
 				<div id="panelsStayOpen-collapseOne"
 					class="accordion-collapse collapse show">
 					<div class="accordion-body">
-						<form class="row g-1">
+						<form class="row g-1" th:action="@{/items/items}" method="get">
 							<div class="row g-1">
 								<div class="col-sm">
 									<input type="text" class="form-control" placeholder="メーカー"
-										aria-label="Maker">
+										aria-label="Maker" th:field="*{makerInput}">
 								</div>
 								<div class="col-sm">
 									<input type="text" class="form-control" placeholder="型番"
-										aria-label="ItemNo">
+										aria-label="ItemNo" th:field="*{ItemNoInput}">
 								</div>
 								<div class="col-sm-7">
 									<input type="text" class="form-control" placeholder="製品名"
-										aria-label="ItemName">
+										aria-label="ItemName" th:field="*{ItemNameInput}">
 								</div>
 							</div>
 							<div class="row g-1">
 								<div class="col-sm">
-									<select class="form-select" aria-label="Genre">
+									<select class="form-select" aria-label="Genre"
+										th:field="*{GenreInput}">
 										<option selected>ジャンル</option>
 										<option value="1">One</option>
 										<option value="2">Two</option>
@@ -87,7 +87,8 @@
 									</select>
 								</div>
 								<div class="col-sm">
-									<select class="form-select" aria-label="Scale">
+									<select class="form-select" aria-label="Scale"
+										th:field="*{ScaleInput}">
 										<option selected>スケール</option>
 										<option value="1">One</option>
 										<option value="2">Two</option>
@@ -96,21 +97,22 @@
 								</div>
 								<div class="col-sm-7">
 									<input type="text" class="form-control" placeholder="シリーズ"
-										aria-label="ItemName">
+										aria-label="series" th:field="*{seriesInput}">
 								</div>
 							</div>
 							<div class="row g-1">
 								<div class="col-sm-6">
-									<input type="text" class="form-control" placeholder="番組シリーズ"
-										aria-label="ItemName">
+									<input type="text" class="form-control" placeholder="原作名"
+										aria-label="orignal" th:field="*{orignalInput}">>
 								</div>
+
 								<div class="col">
 									<input type="text" class="form-control" placeholder="機体名"
-										aria-label="ItemName">
+										aria-label="kitaimei">
 								</div>
 							</div>
 							<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-								<button class="btn btn-primary me-md-2" type="button">検索</button>
+								<button class="btn btn-primary me-md-2" type="submit">検索</button>
 								<button class="btn btn-primary" type="button">Button</button>
 							</div>
 						</form>
@@ -118,6 +120,8 @@
 				</div>
 			</div>
 		</div>
+
+
 
 		<!-- 検索結果テーブル -->
 		<div class="search-result table-responsive mt-3">
