@@ -61,38 +61,44 @@
 				<div id="panelsStayOpen-collapseOne"
 					class="accordion-collapse collapse show">
 					<div class="accordion-body">
-						<form class="row g-1" th:action="@{/items/items}" method="get">
+						<!-- 検索条件フォーム -->
+						<form class="row g-1" th:action="@{/items/search}" method="post"
+							th:object="${searchForm}">
 							<div class="row g-1">
 								<div class="col-sm">
-									<input type="text" class="form-control" placeholder="メーカー"
-										aria-label="Maker" th:field="*{makerInput}">
+									<select class="form-select" aria-label="Scale"
+										th:field="*{makerIdInput}">
+										<option value="1">タミヤ</option>
+										<option value="2">ハセガワ</option>
+										<option value="3">アオシマ</option>
+									</select>
 								</div>
 								<div class="col-sm">
 									<input type="text" class="form-control" placeholder="型番"
-										aria-label="ItemNo" th:field="*{ItemNoInput}">
+										aria-label="modelNumber" th:field="*{ModelNumberInput}">
 								</div>
 								<div class="col-sm-7">
 									<input type="text" class="form-control" placeholder="製品名"
-										aria-label="ItemName" th:field="*{ItemNameInput}">
+										aria-label="itemName" th:field="*{itemNameInput}">
 								</div>
 							</div>
 							<div class="row g-1">
 								<div class="col-sm">
 									<select class="form-select" aria-label="Genre"
-										th:field="*{GenreInput}">
-										<option selected>ジャンル</option>
-										<option value="1">One</option>
-										<option value="2">Two</option>
-										<option value="3">Three</option>
+										th:field="*{genreIdInput}">
+										<option value="1">飛行機</option>
+										<option value="2">艦船</option>
+										<option value="3">AFV</option>
+										<option value="4">車</option>
 									</select>
 								</div>
 								<div class="col-sm">
 									<select class="form-select" aria-label="Scale"
-										th:field="*{ScaleInput}">
-										<option selected>スケール</option>
-										<option value="1">One</option>
-										<option value="2">Two</option>
-										<option value="3">Three</option>
+										th:field="*{scaleIdInput}">
+										<option value="1">1/12</option>
+										<option value="2">1/24</option>
+										<option value="3">1/32</option>
+										<option value="4">1/700</option>
 									</select>
 								</div>
 								<div class="col-sm-7">
@@ -103,7 +109,7 @@
 							<div class="row g-1">
 								<div class="col-sm-6">
 									<input type="text" class="form-control" placeholder="原作名"
-										aria-label="orignal" th:field="*{orignalInput}">>
+										aria-label="orignal" th:field="*{originalInput}">
 								</div>
 
 								<div class="col">
@@ -111,10 +117,12 @@
 										aria-label="kitaimei">
 								</div>
 							</div>
+							<!-- 検索ボタン -->
 							<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 								<button class="btn btn-primary me-md-2" type="submit">検索</button>
 								<button class="btn btn-primary" type="button">Button</button>
 							</div>
+
 						</form>
 					</div>
 				</div>

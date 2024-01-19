@@ -71,77 +71,13 @@ public class Item {
 	 * 検索フォームからの入力を受け取るためのフィールド
 	 * 
 	 */
-    private String makerInput;
-    private String itemNoInput;
+    private String makerIdInput;
+    private String modelNumberInput;
     private String itemNameInput;
-    private String genreInput;
-    private String scaleInput;
+    private String genreIdInput;
+    private String scaleIdInput;
     private String seriesInput;
     private String originalInput;
-    
-    // 検索フォームからの入力を受け取るための getter/setter メソッド
-    // メーカー
-    public String getMakerInput() {
-        return makerInput;
-    }
 
-    public void setMakerInput(String makerInput) {
-        this.makerInput = makerInput;
-    }
-    
-    // 型番
-    public String getItemNoInput() {
-        return itemNoInput;
-    }
-
-    public void setItemNoInput(String itemNoInput) {
-        this.itemNoInput = itemNoInput;
-    }
-    
-    // 製品名
-    public String getItemNameInput() {
-        return itemNameInput;
-    }
-
-    public void setItemNameInput(String itemNameInput) {
-        this.itemNameInput = itemNameInput;
-    }
-    
-    // ジャンル
-    public String getGenreInput() {
-        return itemNameInput;
-    }
-
-    public void setGenreInput(String genreInput) {
-        this.genreInput = genreInput;
-    }
-    
-    // スケール
-    public String getScaleInput() {
-        return scaleInput;
-    }
-
-    public void setScaleInput(String scaleInput) {
-        this.scaleInput = scaleInput;
-    }
-    
-    // シリーズ
-    public String getSeriesInput() {
-        return scaleInput;
-    }
-
-    public void setSeriesInput(String seriesInput) {
-        this.seriesInput = seriesInput;
-    }
-    
-    // 原作名
-    public String getOriginalInput() {
-        return originalInput;
-    }
-
-    public void setOriginalInput(String originalInput) {
-        this.originalInput = originalInput;
-    }
-    
-    
+    			   
 }

@@ -1,8 +1,6 @@
 package com.example.app.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,24 +31,7 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	public List<Item> getItemList() throws Exception {
 		return itemMapper.selectAll();
 	}
-
-	// 条件検索
-	// TODO 条件付き検索のときはどうするか
-	@Override
-	public List<Item> searchItems(String maker, String itemNo, String itemName, String genre, String scale,
-			String series, String original) throws Exception {
-		Map<String, Object> params = new HashMap<>();
-		params.put("maker", maker);
-		params.put("itemNo", itemNo);
-		params.put("itemName", itemName);
-		params.put("genre", genre);
-		params.put("scale", scale);
-		params.put("series", series);
-		params.put("original", original);
-
-		return itemMapper.searchItems(params);
-	}
-
+	
 	// メーカーマスター取得
 	@Override
 	public List<Maker> getMakerList() throws Exception {
@@ -68,6 +49,12 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	@Override
 	public List<Scale> getScaleList() throws Exception {
 		return scaleMapper.selectAll();
+	}
+	
+	// 条件検索
+	@Override
+	public List<Item> searchItems(Item searchForm) throws Exception {
+		return itemMapper.searchItems(searchForm);
 	}
 
 }

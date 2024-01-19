@@ -2,76 +2,72 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.app.mapper.ItemMapper">
-	
-<!-- SQL アイテムマスター -->
-	
+
+	<!-- SQL アイテムマスター -->
+
 	<!-- 全件検索, 上限100件 -->
 	<select id="selectAll" resultType="Item">
 		SELECT
-			mi.item_id,
-            mi.maker_id,
-            mm.maker,
-			mi.model_number,
-			mi.item_name,
-			mi.genre_id,
-			mg.genre,
-			mi.scale_id,
-			ms.scale,
-			mi.series,
-			mi.original,
-			mi.price,
-			mi.note,
-			mi.delete_flg
+		mi.item_id,
+		mi.maker_id,
+		mm.maker,
+		mi.model_number,
+		mi.item_name,
+		mi.genre_id,
+		mg.genre,
+		mi.scale_id,
+		ms.scale,
+		mi.series,
+		mi.original,
+		mi.price,
+		mi.note,
+		mi.delete_flg
 		FROM master_item mi
-        LEFT JOIN master_maker mm
-			ON mi.maker_id = mm.maker_id
+		LEFT JOIN master_maker mm
+		ON
+		mi.maker_id = mm.maker_id
 		LEFT JOIN master_genre mg
-			ON mi.genre_id = mg.genre_id
+		ON mi.genre_id =
+		mg.genre_id
 		LEFT JOIN master_scale ms
-			ON mi.scale_id = ms.scale_id
-		WHERE mi.delete_flg = 0
+		ON mi.scale_id = ms.scale_id
+		WHERE
+		mi.delete_flg = 0
 		LIMIT 100
 	</select>
 
 	<!-- 複数条件による検索 -->
-	<select id="searchItems" resultType="Item">
+	<select id="searchItems" resultType="Item" parameterType="Item">
 		SELECT * FROM master_item
 		<where>
 			<!-- 条件1: 型番が指定されている場合 -->
-			<if test="modelNumber != null and modelNumber != ''">
-				AND model_number LIKE CONCAT('%', #{modelNumber}, '%')
+			<if test="modelNumberInput != null and modelNumber != ''">
+				AND model_number LIKE CONCAT('%', #{modelNumberInput}, '%')
 			</if>
-
 			<!-- 条件2: 製品名が指定されている場合 -->
-			<if test="itemName != null and itemName != ''">
-				AND item_name LIKE CONCAT('%', #{itemName}, '%')
+			<if test="itemNameInput != null and itemName != ''">
+				AND item_name LIKE CONCAT('%', #{itemNameInput}, '%')
 			</if>
-
 			<!-- 条件3: メーカーID (UIではメーカー) が指定されている場合 -->
-			<if test="makerId != null">
-				AND maker_id = #{makerId}
+			<if test="makerIdInput != null">
+				AND maker_id = #{makerIdInput}
 			</if>
-
 			<!-- 条件4: ジャンルID (UIではジャンル) が指定されている場合 -->
-			<if test="genreId != null">
-				AND genre_id = #{genreId}
+			<if test="genreIdInput != null">
+				AND genre_id = #{genreIdInput}
 			</if>
-
 			<!-- 条件5: スケールID (UIではスケール) が指定されている場合 -->
-			<if test="scaleId != null">
-				AND scale_id = #{scaleId}
+			<if test="scaleIdInput != null">
+				AND scale_id = #{scaleIdInput}
 			</if>
-
 			<!-- 条件6: シリーズが指定されている場合 -->
-			<if test="series != null and series != ''">
-				AND series LIKE CONCAT('%', #{series}, '%')
+			<if test="seriesInput != null and series != ''">
+				AND series LIKE CONCAT('%', #{seriesInput}, '%')
 			</if>
-
 			<!-- 条件6: 原作名が指定されている場合 -->
-			<if test="original != null and original != ''">
-				AND original LIKE CONCAT('%', #{original}, '%')
+			<if test="originalinput != null and originalinput != ''">
+				AND original LIKE CONCAT('%', #{originalinput}, '%')
 			</if>
-
 			<!-- 固定条件: delete_flg=0 -->
 			AND delete_flg = 0
 		</where>
@@ -80,38 +76,42 @@
 	<insert id="insert" parameterType="Item">
 		INSERT INTO master_item VALUES
 		(
-			NULL,
-			model_number = #{modelNumber},
-			item_name = #{itemName},
-			maker_id = #{makerId},
-			genre_id = #{genreId},
-			scale_id = #{scaleId},
-			series = #{series},
-			original = #{original},
-			price = #{price},
-			note = #{note},
-			delete_flg = 0,
-			register_date = NOW(),
-			register_user_id = 'user'
-			update_date = now(),
-			update_user_id = 'user'
+		NULL,
+		model_number = #{modelNumber},
+		item_name = #{itemName},
+		maker_id =
+		#{makerId},
+		genre_id = #{genreId},
+		scale_id = #{scaleId},
+		series =
+		#{series},
+		original = #{original},
+		price = #{price},
+		note = #{note},
+		delete_flg = 0,
+		register_date = NOW(),
+		register_user_id = 'user'
+		update_date = now(),
+		update_user_id = 'user'
 		)
 	</insert>
 
 	<update id="update" parameterType="Item">
 		UPDATE master_item
 		SET
-			model_number = #{modelNumber},
-			item_name = #{itemName},
-			maker_id = #{makerId},
-			genre_id = #{genreId},
-			scale_id = #{scaleId},
-			series = #{series},
-			original = #{original},
-			price = #{price},
-			note = #{note},
-			update_date = now(),
-			update_user_id = 'user'
+		model_number = #{modelNumber},
+		item_name = #{itemName},
+		maker_id =
+		#{makerId},
+		genre_id = #{genreId},
+		scale_id = #{scaleId},
+		series =
+		#{series},
+		original = #{original},
+		price = #{price},
+		note = #{note},
+		update_date = now(),
+		update_user_id = 'user'
 		WHERE item_id = #{itemId}
 	</update>
 
