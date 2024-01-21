@@ -17,5 +17,5 @@ public interface ItemMapper {
 	Item selectByItemId(Integer itemId) throws Exception;
 	void insert(Item item) throws Exception;
 	void update(Item item) throws Exception;
-	void delete(Item item) throws Exception;
+	void delete(Integer itemId) throws Exception;
 }

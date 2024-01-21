@@ -39,6 +39,20 @@ public class ItemSearchController {
 		model.addAttribute("items", itemService.searchItems(searchForm));
 		return "items/itemlist";
 	}
+	
+	// 製品マスター画面の表示
+	@GetMapping("/add")
+	public String addGet(Model model) throws Exception{
+		model.addAttribute("title","製品マスター追加");
+		model.addAttribute("item", new Item());
+		//TODO　メーカー、ジャンル、スケールマスター渡すならここで
+		return "members/save";
+	}
+	
+	
+	
+	
+	
 
 	// 製品マスターの編集画面への遷移
 	@GetMapping("/edit/{id}")

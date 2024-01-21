@@ -68,4 +68,17 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	public void editItem(Item item) throws Exception {
 		itemMapper.update(item);
 	}
+	
+	@Override
+	public void addItem(Item item) throws Exception {
+	itemMapper.insert(item);
+	}
+	@Override
+	public void ediItem(Item item) throws Exception {
+	itemMapper.update(item);
+	}
+	@Override
+	public void deleteItem(Integer itemId) throws Exception {
+	itemMapper.delete(itemId);
+	}
 }
