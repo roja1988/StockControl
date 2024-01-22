@@ -46,7 +46,7 @@ public class ItemSearchController {
 		model.addAttribute("title","製品マスター追加");
 		model.addAttribute("item", new Item());
 		//TODO　メーカー、ジャンル、スケールマスター渡すならここで
-		return "members/save";
+		return "items/itemedit";
 	}
 	
 	
@@ -59,10 +59,10 @@ public class ItemSearchController {
 	public String editGet(@PathVariable Integer itemId, Model model) throws Exception {
 		model.addAttribute("title", "製品マスター");
 		model.addAttribute("item", itemService.getItemByItemId(itemId));
-		model.addAttribute("maker", itemService.getMakerList());
-		model.addAttribute("genre", itemService.getGenreList());
-		model.addAttribute("scale", itemService.getScaleList());
-		return "Items/itemedit";
+		//model.addAttribute("maker", itemService.getMakerList());
+		//model.addAttribute("genre", itemService.getGenreList());
+		//model.addAttribute("scale", itemService.getScaleList());
+		return "items/itemedit";
 	}
 
 	// 編集更新の実行

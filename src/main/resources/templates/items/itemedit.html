@@ -19,7 +19,7 @@
 		<!-- コンテンツ -->
 		<form class="p-4 border rounded" method="post" th:object="${item}">
 			<!-- エラーメッセージ -->
-			<span th:errors="*{name}" class="error"></span>
+			<!--<span th:errors="*{name}" class="error"></span>-->
 			<div class="row g-3">
 				
 				<div class="col-md-6 mb-3">
@@ -35,7 +35,7 @@
 				<div class="col-md-6 mb-3">
 					<label for="manufacturer" class="form-label">メーカー</label> <select
 						th:field="*{makerId}" class="form-select" id="manufacturer">
-						<option selected>メーカーを選択</option>
+						<option value="">メーカー</option>
 						<option value="1">タミヤ</option>
 						<option value="2">ハセガワ</option>
 						<option value="3">アオシマ</option>
@@ -44,7 +44,7 @@
 				<div class="col-md-6 mb-3">
 					<label for="genre" class="form-label">ジャンル</label> <select
 						th:field="*{genreId}"class="form-select" id="genre">
-						<option selected>ジャンルを選択</option>
+						<option value="">ジャンル</option>
 						<option value="1">飛行機</option>
 						<option value="2">艦船</option>
 						<option value="3">AFV</option>
@@ -54,7 +54,7 @@
 				<div class="col-md-6 mb-3">
 					<label for="scale" class="form-label">スケール</label> <select
 						th:field="*{scaleId}" class="form-select" id="scale">
-						<option selected>スケールを選択</option>
+						<option value="">スケール</option>
 						<option value="1">1/48</option>
 						<option value="2">1/700</option>
 						<option value="3">1/35</option>
@@ -85,6 +85,7 @@
 				<button class="btn btn-danger" type="button">削除</button>
 			</div>
 		</form>
+		<p class="mt-4"><a th:href="@{/items}">一覧に戻る</a></p>
 	</main>
 
 	<!-- フッター -->
