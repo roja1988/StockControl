@@ -24,8 +24,6 @@ public interface ItemSearchService {
 	void editItem(Item item) throws Exception;
 	
 	void addItem(Item item) throws Exception;
-
-	void ediItem(Item item) throws Exception;
 	
 	void deleteItem(Integer itemId) throws Exception;
 	}

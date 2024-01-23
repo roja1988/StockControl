@@ -69,15 +69,14 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 		itemMapper.update(item);
 	}
 	
+	
 	// 製品マスターの追加
 	@Override
 	public void addItem(Item item) throws Exception {
-	itemMapper.insert(item);
+	    itemMapper.insert(item);
 	}
-	@Override
-	public void ediItem(Item item) throws Exception {
-	itemMapper.update(item);
-	}
+	
+	// 製品マスターの削除
 	@Override
 	public void deleteItem(Integer itemId) throws Exception {
 	itemMapper.delete(itemId);

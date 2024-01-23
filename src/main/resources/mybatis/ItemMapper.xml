@@ -133,27 +133,29 @@
 		mi.item_id = #{itemId}
 	</select>
 
+	<!-- 製品マスターの追加 -->
 	<insert id="insert" parameterType="Item">
 		INSERT INTO master_item VALUES
 		(
-		  NULL,
-		  #{modelNumber},
-		  #{itemName},
-		  #{makerId},
-		  #{genreId},
-		  #{scaleId},
-		  #{series},
-		  #{original},
-		  #{price},
-		  #{note},
-		  0,
-		  NOW(),
-		  'user',
-		  NOW(),
-		  'user'
+		NULL,
+		#{modelNumber},
+		#{itemName},
+		#{makerId},
+		#{genreId},
+		#{scaleId},
+		#{series},
+		#{original},
+		#{price},
+		#{note},
+		0,
+		NOW(),
+		'user',
+		NOW(),
+		'user'
 		)
 	</insert>
 
+	<!-- 製品マスターの更新 -->
 	<update id="update" parameterType="Item">
 		UPDATE master_item
 		SET
@@ -173,7 +175,7 @@
 		WHERE item_id = #{itemId}
 	</update>
 
-	<delete id="">
+	<delete id="deleteItem">
 		DELETE FROM master_item
 		WHERE item_id = #{itemId}
 	</delete>

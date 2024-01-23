@@ -7,6 +7,8 @@
 	<title>製品検索</title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<!-- Bootstrap Icons CSS (Bootstrap Icons ライブラリを含めるためにこの行を追加) -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.19.0/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -22,7 +24,7 @@
 			<nav>
 				<ul class="nav nav-pills">
 					<li class="nav-item"><a class="nav-link" th:href="@{/items}">製品検索</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/items/add}">製品マスター</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/items/add}">製品マスター追加</a></li>
 					<!--
                 <li class="nav-item">
                     <a class="nav-link" href="area-search.html">エリア検索</a>
@@ -141,6 +143,7 @@
 						<th scope="col">価格</th>
 						<th scope="col">入出庫</th>
 						<th scope="col">編集</th>
+						<th scope="col">削除</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -156,7 +159,8 @@
 						<td>[[${item.original}]]</td>
 						<td>[[${item.price}]]</td>
 						<td><a class="btn btn-primary" href="inout.html">入出庫</a></td>
-						<td><a class="btn btn-primary" th:href="@{/items/edit/{itemId}(itemId=${item.itemId})}">編集</a>
+						<td><a class="btn btn-warning" th:href="@{/items/edit/{itemId}(itemId=${item.itemId})}">編集</a>
+						<td><a class="btn btn-danger" th:href="@{/items/delete/{itemId}(itemId=${item.itemId})}">削除</a>
 						</td>
 					</tr>
 				</tbody>
@@ -169,7 +173,9 @@
 	<footer class="bg-light p-3">
 		<div class="container">
 			<div class="text-center">
-				<p>&copy; 2024 StockControl. All rights reserved.</p>
+				<!-- 戻るボタンのアイコンを追加 -->
+				<a href="#" id="scrollToTopBtn" class="btn btn-primary btn-lg" style="display:none;"><i
+						class="bi bi-arrow-up"></i>Top</a>
 			</div>
 		</div>
 	</footer>
@@ -179,6 +185,26 @@
 	<script src="js/script1.js"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- 追加したスクロールトップの処理 -->
+	<script>
+		$(document).ready(function () {
+			// 戻るボタンの表示制御
+			$(window).scroll(function () {
+				if ($(this).scrollTop() > 100) {
+					$('#scrollToTopBtn').fadeIn();
+				} else {
+					$('#scrollToTopBtn').fadeOut();
+				}
+			});
+
+			// 戻るボタンのクリックイベント
+			$("#scrollToTopBtn").click(function () {
+				// ページトップまでアニメーションでスクロール
+				$("html, body").animate({scrollTop: 0}, "slow");
+				return false;
+			});
+		});
+	</script>
 
 </body>
 

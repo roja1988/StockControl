@@ -5,13 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.app.domain.Genre;
 import com.example.app.domain.Item;
@@ -19,7 +17,6 @@ import com.example.app.domain.Maker;
 import com.example.app.domain.Scale;
 import com.example.app.service.ItemSearchService;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -60,7 +57,7 @@ public class ItemSearchController {
 		return "items/itemlist";
 	}
 
-	// 製品マスター画面の表示
+	// 製品マスター追加登録画面の表示
 	@GetMapping("/add")
 	public String addGet(Model model) throws Exception {
 		model.addAttribute("title", "製品マスター追加");
@@ -72,64 +69,87 @@ public class ItemSearchController {
 	    model.addAttribute("genreList", genreList);
 	    List<Scale> scaleList = itemService.getScaleList();
 	    model.addAttribute("scaleList", scaleList);
-
-	    // ジャンル、スケールマスターも渡すならここで取得と設定を行う
-		return "items/itemedit";
+		return "items/itemadd";
 	}
 
-	// 製品マスターの追加処理
+	// 「登録」ボタンが押された場合の処理
 	@PostMapping("/add")
-	public String addItem(
-			@Valid Item item,
-			Errors errors,
-			RedirectAttributes rd,
-			Model model) throws Exception {
-
-		if (errors.hasErrors()) {
-			model.addAttribute("title", "製品マスター追加");
-			return "items/itemedit";
-		}
-
-		// データの追加処理を呼び出す
-
-		itemService.addItem(item);
-
-		rd.addAttribute("statusMessage", "製品マスターを追加しました。");
-		return "redirect:/items";
+	public String addPost(@ModelAttribute("item") Item item, Model model) {
+	    try {
+	        // itemServiceを介してItemSearchServiceImplに新しいアイテムを登録する
+	        itemService.addItem(item);
+	        
+	        // 登録が成功したら一覧画面にリダイレクト
+	        return "redirect:/items";
+	    } catch (Exception e) {
+	        // エラーが発生した場合はエラーメッセージを表示
+	        model.addAttribute("error", "登録に失敗しました。");
+	        return "items/itemadd";
+	    }
 	}
 
 	// 製品マスターの編集画面への遷移
-	@GetMapping("/edit/{id}")
+	@GetMapping("/edit/{itemId}")
 	public String editGet(@PathVariable Integer itemId, Model model) throws Exception {
-		model.addAttribute("title", "製品マスター");
-		model.addAttribute("item", itemService.getItemByItemId(itemId));
-		//model.addAttribute("maker", itemService.getMakerList());
-		//model.addAttribute("genre", itemService.getGenreList());
-		//model.addAttribute("scale", itemService.getScaleList());
-		return "items/itemedit";
+	    model.addAttribute("title", "製品マスター更新");
+	    model.addAttribute("item", itemService.getItemByItemId(itemId));
+	    List<Maker> makerList = itemService.getMakerList();
+	    model.addAttribute("makerList", makerList);
+	    List<Genre> genreList = itemService.getGenreList();
+	    model.addAttribute("genreList", genreList);
+	    List<Scale> scaleList = itemService.getScaleList();
+	    model.addAttribute("scaleList", scaleList);
+	    return "items/itemedit";
+	}
+	
+	// 製品マスターの更新（editGetで実行）
+	@PostMapping("/edit/update/{itemId}")
+	public String updateItemFromEditGet(@PathVariable Integer itemId, @ModelAttribute("item") Item item, Model model) {
+	    try {
+	        // itemIdに対応するDBのデータをフォームの内容で更新
+	        itemService.editItem(item);
+
+	        // 更新が成功したら一覧画面にリダイレクト
+	        return "redirect:/items";
+	    } catch (Exception e) {
+	        // エラーが発生した場合はエラーメッセージを表示
+	        model.addAttribute("error", "更新に失敗しました。");
+	        // エラー時は再び編集画面に戻る
+	        return "items/itemedit";
+	    }
+	}
+	
+	// 製品マスターの削除画面への遷移
+	@GetMapping("/delete/{itemId}")
+	public String deleteGet(@PathVariable Integer itemId, Model model) throws Exception {
+	    model.addAttribute("title", "製品マスター削除");
+	    model.addAttribute("item", itemService.getItemByItemId(itemId));
+	    List<Maker> makerList = itemService.getMakerList();
+	    model.addAttribute("makerList", makerList);
+	    List<Genre> genreList = itemService.getGenreList();
+	    model.addAttribute("genreList", genreList);
+	    List<Scale> scaleList = itemService.getScaleList();
+	    model.addAttribute("scaleList", scaleList);
+	    return "items/itemdelete";
+	}
+	
+	// 製品マスターの削除処理
+	@PostMapping("/delete/{itemId}")
+	public String deleteItem(@PathVariable Integer itemId, Model model) {
+		System.out.println("ここまで");
+	    try {
+	        // itemIdに対応するDBのデータを削除
+	        itemService.deleteItem(itemId);
+
+	        // 削除が成功したら一覧画面にリダイレクト
+	        return "redirect:/items";
+	    } catch (Exception e) {
+	        // エラーが発生した場合はエラーメッセージを表示
+	        model.addAttribute("error", "削除に失敗しました。");
+	        // エラー時は削除画面に戻る
+	        return "items/itemdelete";
+	    }
 	}
 
-	// 編集更新の実行
-	@PostMapping("edit/{itemId}")
-	public String editPost(
-			@PathVariable Integer itemId,
-			@Valid Item item,
-			Errors errors,
-			RedirectAttributes rd,
-			Model model) throws Exception {
-		if (errors.hasErrors()) {
-			model.addAttribute("title", "製品マスター");
-			model.addAttribute("maker", itemService.getMakerList());
-			model.addAttribute("genre", itemService.getGenreList());
-			model.addAttribute("scale", itemService.getScaleList());
-			return "Items/itemedit";
-		}
-
-		item.setItemId(itemId); // 更新に必要な製品IDをセット
-		itemService.editItem(item);
-		rd.addAttribute("statusMessage", "製品マスターを更新しました。");
-		return "redirect:/items";
-
-	}
 
 }
