@@ -1,6 +1,5 @@
 package com.example.app.domain;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -13,11 +12,9 @@ import lombok.Data;
 public class Genre {
 	
 	// ジャンルID
-	@NotBlank
 	private int genreId;
 	
 	// ジャンル
-	@NotBlank
 	private String genre;
 	
 	// 削除フラグ

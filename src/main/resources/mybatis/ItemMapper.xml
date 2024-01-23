@@ -136,23 +136,21 @@
 	<insert id="insert" parameterType="Item">
 		INSERT INTO master_item VALUES
 		(
-		NULL,
-		model_number = #{modelNumber},
-		item_name = #{itemName},
-		maker_id =
-		#{makerId},
-		genre_id = #{genreId},
-		scale_id = #{scaleId},
-		series =
-		#{series},
-		original = #{original},
-		price = #{price},
-		note = #{note},
-		delete_flg = 0,
-		register_date = NOW(),
-		register_user_id = 'user'
-		update_date = now(),
-		update_user_id = 'user'
+		  NULL,
+		  #{modelNumber},
+		  #{itemName},
+		  #{makerId},
+		  #{genreId},
+		  #{scaleId},
+		  #{series},
+		  #{original},
+		  #{price},
+		  #{note},
+		  0,
+		  NOW(),
+		  'user',
+		  NOW(),
+		  'user'
 		)
 	</insert>
 
@@ -181,11 +179,3 @@
 	</delete>
 
 </mapper>
-
-
-
-
-
-
-
-

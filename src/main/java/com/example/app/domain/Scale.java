@@ -1,7 +1,5 @@
 package com.example.app.domain;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
@@ -14,12 +12,9 @@ import lombok.Data;
 public class Scale {
 
 	// スケールID
-	@NotBlank
 	private int scaleId;
 	
 	// スケール
-	@NotBlank
-	@Size(max=45)
 	private String scale;
 	
 	// 削除フラグ

@@ -1,7 +1,6 @@
 package com.example.app.domain;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -18,7 +17,6 @@ public class Item {
 	 * 検索結果を表示するためのフィールド
 	 */
 	// 製品ID
-	@NotNull
 	private Integer itemId;
 
 	// 型番

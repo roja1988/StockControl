@@ -61,23 +61,10 @@
 								<div class="col-sm">
 									<select class="form-select" aria-label="Scale" th:field="*{makerIdInput}">
 										<option value="">メーカー</option>
-										<option value="2">青島文化教材社</option>
-										<option value="3">壽屋</option>
-										<option value="4">GSIクレオス</option>
-										<option value="5">タミヤ</option>
-										<option value="6">トミーテック</option>
-										<option value="7">ハセガワ</option>
-										<option value="8">BANDAI SPIRITS</option>
-										<option value="9">ビーバーコーポレーション</option>
-										<option value="10">ファインモールド</option>
-										<option value="11">プラッツ</option>
-										<option value="12">ボークス</option>
-										<option value="13">ホビージャパン</option>
-										<option value="14">マイクロエース</option>
-										<option value="15">モデリウム</option>
-										<option value="16">モデルアート社</option>
-										<option value="17">ヤマシタホビー</option>
-
+										<!-- メーカー一覧をThymeleafで繰り返し表示 -->
+										<option th:each="maker : ${makerList}" th:value="${maker.makerId}"
+											th:text="${maker.maker}">
+										</option>
 									</select>
 								</div>
 								<div class="col-sm">
@@ -93,39 +80,19 @@
 								<div class="col-sm">
 									<select class="form-select" aria-label="Genre" th:field="*{genreIdInput}">
 										<option value="">ジャンル</option>
-										<option value="1">飛行機</option>
-										<option value="2">艦船</option>
-										<option value="3">AFV</option>
-										<option value="4">カーモデル</option>
-										<option value="5">ガンダム</option>
-										<option value="6">ロボット</option>
-										<option value="7">フィギュアライズ</option>
-										<option value="8">特撮</option>
-										<option value="9">SF</option>
-										<option value="10">建築</option>
-										<option value="11">情景</option>
-										<option value="12">工作キット</option>
+										<!-- ジャンル一覧をThymeleafで繰り返し表示 -->
+										<option th:each="genre : ${genreList}" th:value="${genre.genreId}"
+											th:text="${genre.genre}">
+										</option>
 									</select>
 								</div>
 								<div class="col-sm">
 									<select class="form-select" aria-label="Scale" th:field="*{scaleIdInput}">
 										<option value="">スケール</option>
-										<option value="1">1/16</option>
-										<option value="2">1/20</option>
-										<option value="3">1/24</option>
-										<option value="4">1/32</option>
-										<option value="5">1/35</option>
-										<option value="6">1/43</option>
-										<option value="7">1/48</option>
-										<option value="8">1/60</option>
-										<option value="9">1/72</option>
-										<option value="10">1/100</option>
-										<option value="11">1/144</option>
-										<option value="12">1/200</option>
-										<option value="13">1/350</option>
-										<option value="14">1/450</option>
-										<option value="15">1/500</option>
-										<option value="16">1/700</option>
+										<!-- スケール一覧をThymeleafで繰り返し表示 -->
+										<option th:each="scale : ${scaleList}" th:value="${scale.scaleId}"
+											th:text="${scale.scale}">
+										</option>
 									</select>
 								</div>
 								<div class="col-sm-7">
