@@ -103,9 +103,9 @@ public class ItemSearchController {
 	}
 	
 	// 製品マスターの更新（editGetで実行）
-	@PostMapping("/edit/update/{itemId}")
+	@PostMapping("/edit/{itemId}")
 	public String updateItemFromEditGet(@PathVariable Integer itemId, @ModelAttribute("item") Item item, Model model) {
-	    try {
+		try {
 	        // itemIdに対応するDBのデータをフォームの内容で更新
 	        itemService.editItem(item);
 
@@ -117,6 +117,7 @@ public class ItemSearchController {
 	        // エラー時は再び編集画面に戻る
 	        return "items/itemedit";
 	    }
+
 	}
 	
 	// 製品マスターの削除画面への遷移
@@ -130,22 +131,23 @@ public class ItemSearchController {
 	    model.addAttribute("genreList", genreList);
 	    List<Scale> scaleList = itemService.getScaleList();
 	    model.addAttribute("scaleList", scaleList);
+	    
 	    return "items/itemdelete";
 	}
 	
 	// 製品マスターの削除処理
 	@PostMapping("/delete/{itemId}")
-	public String deleteItem(@PathVariable Integer itemId, Model model) {
-		System.out.println("ここまで");
+	public String deleteItem(@PathVariable Integer itemId, @ModelAttribute("item") Item item, Model model) {
+
 	    try {
 	        // itemIdに対応するDBのデータを削除
-	        itemService.deleteItem(itemId);
-
+	        itemService.deleteItem(item);
+			System.out.println("成功");
 	        // 削除が成功したら一覧画面にリダイレクト
 	        return "redirect:/items";
 	    } catch (Exception e) {
 	        // エラーが発生した場合はエラーメッセージを表示
-	        model.addAttribute("error", "削除に失敗しました。");
+	    	System.out.println(e);
 	        // エラー時は削除画面に戻る
 	        return "items/itemdelete";
 	    }

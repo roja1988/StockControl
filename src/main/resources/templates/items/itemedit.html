@@ -47,7 +47,7 @@
 		<h2 class="text-primary fw-bold p-2 rounded">[[${title}]]</h2>
 		<!-- コンテンツ -->
 		<form class="p-4 border rounded" method="post"
-				th:action="@{/items/edit/update/{itemId}(itemId=${item.itemId})}" th:object="${item}">
+				th:action="@{/items/edit/{itemId}(itemId=${item.itemId})}" th:object="${item}">
 
 				<!-- エラーメッセージ -->
 				<!--<span th:errors="*{name}" class="error"></span>-->

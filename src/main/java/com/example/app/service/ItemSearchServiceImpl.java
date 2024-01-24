@@ -78,7 +78,7 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	
 	// 製品マスターの削除
 	@Override
-	public void deleteItem(Integer itemId) throws Exception {
-	itemMapper.delete(itemId);
+	public void deleteItem(Item item) throws Exception {
+	itemMapper.delete(item);
 	}
 }

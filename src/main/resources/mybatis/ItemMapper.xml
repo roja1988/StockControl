@@ -175,7 +175,7 @@
 		WHERE item_id = #{itemId}
 	</update>
 
-	<delete id="deleteItem">
+	<delete id="delete"  parameterType="Item">
 		DELETE FROM master_item
 		WHERE item_id = #{itemId}
 	</delete>
