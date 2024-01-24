@@ -5,11 +5,15 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.app.domain.Area;
 import com.example.app.domain.Genre;
+import com.example.app.domain.Inout;
 import com.example.app.domain.Item;
 import com.example.app.domain.Maker;
 import com.example.app.domain.Scale;
+import com.example.app.mapper.AreaMapper;
 import com.example.app.mapper.GenreMapper;
+import com.example.app.mapper.InoutMapper;
 import com.example.app.mapper.ItemMapper;
 import com.example.app.mapper.MakerMapper;
 import com.example.app.mapper.ScaleMapper;
@@ -25,13 +29,15 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	private final MakerMapper makerMapper;
 	private final GenreMapper genreMapper;
 	private final ScaleMapper scaleMapper;
+	private final AreaMapper areaMapper;
+	private final InoutMapper inoutMapper;
 
 	// 全件取得
 	@Override
 	public List<Item> getItemList() throws Exception {
 		return itemMapper.selectAll();
 	}
-	
+
 	// メーカーマスター取得
 	@Override
 	public List<Maker> getMakerList() throws Exception {
@@ -50,35 +56,46 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	public List<Scale> getScaleList() throws Exception {
 		return scaleMapper.selectAll();
 	}
-	
+
+	// エリアマスター取得
+	@Override
+	public List<Area> getAreaList() throws Exception {
+		return areaMapper.selectAll();
+	}
+
 	// 条件検索
 	@Override
 	public List<Item> searchItems(Item searchForm) throws Exception {
 		return itemMapper.searchItems(searchForm);
 	}
-	
+
 	// 製品マスター個別の表示
 	@Override
 	public Item getItemByItemId(Integer itemId) throws Exception {
 		return itemMapper.selectByItemId(itemId);
 	}
-	
+
 	// 製品マスターの編集更新
 	@Override
 	public void editItem(Item item) throws Exception {
 		itemMapper.update(item);
 	}
-	
-	
+
 	// 製品マスターの追加
 	@Override
 	public void addItem(Item item) throws Exception {
-	    itemMapper.insert(item);
+		itemMapper.insert(item);
 	}
-	
+
 	// 製品マスターの削除
 	@Override
 	public void deleteItem(Item item) throws Exception {
-	itemMapper.delete(item);
+		itemMapper.delete(item);
+	}
+
+	// 入出庫データの登録
+	@Override
+	public void addInout(Inout inout) throws Exception {
+		inoutMapper.insert(inout);
 	}
 }

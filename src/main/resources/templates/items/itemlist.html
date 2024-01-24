@@ -127,7 +127,7 @@
 							<!-- 検索ボタン -->
 							<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 								<button class="btn btn-primary me-md-2" type="submit">検索</button>
-								<button class="btn btn-primary" type="reset">クリア</button>
+								<button class="btn btn-secondary" type="reset">クリア</button>
 							</div>
 
 						</form>
@@ -161,7 +161,7 @@
 				<tbody>
 					<tr th:each="item : ${items}">
 						<td>[[${item.itemId}]]</td>
-						<td>35</td>
+						<td>[[${item.stockQuantity}]]</td>
 						<td>[[${item.maker}]]</td>
 						<td>[[${item.modelNumber}]]</td>
 						<td>[[${item.itemName}]]</td>
@@ -170,9 +170,11 @@
 						<td>[[${item.series}]]</td>
 						<td>[[${item.original}]]</td>
 						<td>[[${item.price}]]</td>
-						<td><a class="btn btn-info" href="inout.html">入出庫</a></td>
+
+						<td><a class="btn btn-info"
+							th:href="@{/items/inout/{itemId}(itemId=${item.itemId})}">入出庫</a></td>
 						<td><a class="btn btn-warning"
-							th:href="@{/items/edit/{itemId}(itemId=${item.itemId})}">編集</a>
+							th:href="@{/items/edit/{itemId}(itemId=${item.itemId})}">更新</a>
 						<td><a class="btn btn-danger"
 							th:href="@{/items/delete/{itemId}(itemId=${item.itemId})}">削除</a>
 						</td>
@@ -184,11 +186,11 @@
 	</main>
 
 	<!-- フッター -->
-	<footer class="bg-light p-3">
+	<footer class="bg-primary p-3">
 		<div class="container">
 			<div class="text-center">
 				<!-- 戻るボタンのアイコンを追加 -->
-				<a href="#" id="scrollToTopBtn" class="btn btn-primary btn-lg"
+				<a href="#" id="scrollToTopBtn" class="btn btn-light btn-lg"
 					style="display: none;"><i class="bi bi-arrow-up"></i>Top</a>
 			</div>
 		</div>

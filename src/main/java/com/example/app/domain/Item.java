@@ -16,6 +16,10 @@ public class Item {
 	/**
 	 * 検索結果を表示するためのフィールド
 	 */
+	
+	// 在庫数量
+	private Integer stockQuantity;
+	
 	// 製品ID
 	private Integer itemId;
 
@@ -76,6 +80,8 @@ public class Item {
     private String scaleIdInput;
     private String seriesInput;
     private String originalInput;
+    private String inAreaIdInput;
+    private String outAreaIdInput;
 
     			   
 }

@@ -2,7 +2,9 @@ package com.example.app.service;
 
 import java.util.List;
 
+import com.example.app.domain.Area;
 import com.example.app.domain.Genre;
+import com.example.app.domain.Inout;
 import com.example.app.domain.Item;
 import com.example.app.domain.Maker;
 import com.example.app.domain.Scale;
@@ -17,6 +19,8 @@ public interface ItemSearchService {
 
 	List<Scale> getScaleList() throws Exception;
 	
+	List<Area> getAreaList() throws Exception;
+	
 	List<Item> searchItems(Item searchForm) throws Exception;
 	
 	Item getItemByItemId(Integer itemId) throws Exception;
@@ -26,4 +30,6 @@ public interface ItemSearchService {
 	void addItem(Item item) throws Exception;
 	
 	void deleteItem(Item item) throws Exception;
+	
+	void addInout(Inout inout) throws Exception;
 	}

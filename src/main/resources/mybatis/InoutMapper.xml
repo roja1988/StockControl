@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.InoutMapper">
+	<!-- 入出庫データの追加 -->
+	<insert id="insert" parameterType="Item">
+		INSERT INTO date_inout VALUES
+		(
+		NULL,
+		#{itemId},
+		#{inoutQuantity},
+		#{outArea},
+		#{inArea},
+		NOW(),
+		'user'
+		0,
+		NOW(),
+		'user',
+		NOW(),
+		'user'
+		)
+	</insert>
+
+</mapper>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.app.domain.Area;
 import com.example.app.domain.Genre;
 import com.example.app.domain.Item;
 import com.example.app.domain.Maker;
@@ -102,7 +103,7 @@ public class ItemSearchController {
 	    return "items/itemedit";
 	}
 	
-	// 製品マスターの更新（editGetで実行）
+	// 製品マスターの更新
 	@PostMapping("/edit/{itemId}")
 	public String updateItemFromEditGet(@PathVariable Integer itemId, @ModelAttribute("item") Item item, Model model) {
 		try {
@@ -152,6 +153,34 @@ public class ItemSearchController {
 	        return "items/itemdelete";
 	    }
 	}
+	
+	// 製品の入出庫データ登録への遷移
+	@GetMapping("/inout/{itemId}")
+	public String inoutGet(@PathVariable Integer itemId, Model model) throws Exception {
+	    model.addAttribute("item", itemService.getItemByItemId(itemId));
+	    List<Area> areaList = itemService.getAreaList();
+	    model.addAttribute("areaList", areaList);
+	    return "/inout";
+	}
+	
+	// 入出庫データの登録
+	@PostMapping("/inout/{itemId}")
+	public String inoutPost(@PathVariable Integer itemId, @ModelAttribute("item") Item item, Model model) {
+		try {
+	        // itemIdに対応するDBのデータをフォームの内容で更新
+	        itemService.editItem(item);
+
+	        // 更新が成功したら一覧画面にリダイレクト
+	        return "redirect:/items";
+	    } catch (Exception e) {
+	        // エラーが発生した場合はエラーメッセージを表示
+	        model.addAttribute("error", "更新に失敗しました。");
+	        // エラー時は再び編集画面に戻る
+	        return "items/itemedit";
+	    }
+
+	}
+
 
 
 }

@@ -8,37 +8,7 @@
 	<!-- 全件検索, 上限100件 -->
 	<select id="selectAll" resultType="Item">
 		SELECT
-		mi.item_id,
-		mi.maker_id,
-		mm.maker,
-		mi.model_number,
-		mi.item_name,
-		mi.genre_id,
-		mg.genre,
-		mi.scale_id,
-		ms.scale,
-		mi.series,
-		mi.original,
-		mi.price,
-		mi.note,
-		mi.delete_flg
-		FROM master_item mi
-		LEFT JOIN master_maker mm
-		ON
-		mi.maker_id = mm.maker_id
-		LEFT JOIN master_genre mg
-		ON mi.genre_id =
-		mg.genre_id
-		LEFT JOIN master_scale ms
-		ON mi.scale_id = ms.scale_id
-		WHERE
-		mi.delete_flg = 0
-		LIMIT 100
-	</select>
-
-	<!-- 複数条件による検索 -->
-	<select id="searchItems" resultType="Item" parameterType="Item">
-		SELECT
+		ds.stock_quantity,
 		mi.item_id,
 		mi.maker_id,
 		mm.maker,
@@ -65,6 +35,48 @@
 		LEFT JOIN master_scale ms
 		ON mi.scale_id =
 		ms.scale_id
+		LEFT JOIN data_stock ds
+		On mi.item_id = ds.item_id
+		WHERE
+		mi.delete_flg = 0
+		LIMIT 100
+	</select>
+
+	<!-- 複数条件による検索 -->
+	<select id="searchItems" resultType="Item" parameterType="Item">
+		SELECT
+		ds.stock_quantity,
+		mi.item_id,
+		mi.maker_id,
+		mm.maker,
+		mi.model_number,
+		mi.item_name,
+		mi.genre_id,
+		mg.genre,
+		mi.scale_id,
+		ms.scale,
+		mi.series,
+		mi.original,
+		mi.price,
+		mi.note,
+		mi.delete_flg
+		FROM
+		master_item mi
+		LEFT JOIN
+		master_maker mm
+		ON
+		mi.maker_id = mm.maker_id
+		LEFT
+		JOIN master_genre mg
+		ON
+		mi.genre_id =
+		mg.genre_id
+		LEFT JOIN master_scale
+		ms
+		ON mi.scale_id =
+		ms.scale_id
+		LEFT JOIN data_stock ds
+		On mi.item_id = ds.item_id
 		<where>
 			<!-- 条件1: 型番が指定されている場合 -->
 			<if test="modelNumberInput != null and modelNumberInput != ''">
@@ -175,9 +187,10 @@
 		WHERE item_id = #{itemId}
 	</update>
 
-	<delete id="delete"  parameterType="Item">
+	<delete id="delete" parameterType="Item">
 		DELETE FROM master_item
-		WHERE item_id = #{itemId}
+		WHERE
+		item_id = #{itemId}
 	</delete>
 
 </mapper>

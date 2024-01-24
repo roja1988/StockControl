@@ -2,127 +2,182 @@
 <html lang="ja" xmlns:th="http://thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>入出庫登録</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>入出庫登録</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
-    <!-- ヘッダー -->
-    <div id="header"></div>
+	<!-- ヘッダー -->
+	<header class="bg-light p-3">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center">
+				<h1 class="text-primary fw-bold">StockControl</h1>
+				<div>
+					<a class="mt-4 ml-4 btn btn-secondary" th:href="@{/logout}">ログアウト</a>
+				</div>
+			</div>
+			<nav>
+				<ul class="nav nav-pills">
+					<li class="nav-item"><a class="nav-link" th:href="@{/items}">製品検索</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/items/add}">製品マスター追加</a></li>
+					<!--
+                <li class="nav-item">
+                    <a class="nav-link" href="area-search.html">エリア検索</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="user-search.html">ユーザー検索</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="log.html">ログ検索</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                </li>
+                -->
+				</ul>
+			</nav>
+		</div>
+	</header>
 
-    <main class="container mt-4">
-        <!-- タイトルバー -->
-        <h2 class="text-primary fw-bold p-2 rounded">入出庫登録</h2>
+	<main class="container mt-4">
+		<!-- タイトルバー -->
+		<h2 class="text-primary fw-bold p-2 rounded">入出庫登録</h2>
 
-        <!-- 製品情報 -->
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4">
-                                <p class="mb-1"><strong>製品名:</strong></p>
-                                <p class="mb-1"><strong>メーカー:</strong></p>
-                                <p class="mb-1"><strong>型番:</strong></p>
-                            </div>
-                            <div class="col-8">
-                                <p class="mb-1">Product A</p>
-                                <p class="mb-1">Manufacturer A</p>
-                                <p class="mb-1">Model A123</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+		<!-- 製品情報 -->
+		<div class="row mb-4">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-4">
+								<p class="mb-1">
+									<strong>製品ID:</strong>
+								</p>
+								<p class="mb-1">
+									<strong>製品名:</strong>
+								</p>
+								<p class="mb-1">
+									<strong>メーカー:</strong>
+								</p>
+								<p class="mb-1">
+									<strong>型番:</strong>
+								</p>
+							</div>
+							<div class="col-8">
+								<p class="mb-1">[[${item.itemId}]]</p>
+								<p class="mb-1">[[${item.itemName}]]</p>
+								<p class="mb-1">[[${item.maker}]]</p>
+								<p class="mb-1">[[${item.modelNumber}]]</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <!-- 入出庫情報入力 -->
-        <form class="p-4 border rounded">
-            <!-- 日時と個数 -->
-            <div class="form-group row">
-                <label for="datetime" class="col-sm-2 col-form-label">日時:</label>
-                <div class="col-sm-4">
-                    <input type="datetime-local" class="form-control" id="datetime"
-                        value="<?php echo date('Y-m-d\TH:i'); ?>" required>
-                </div>
+		<!-- 入出庫情報入力 -->
+		<form class="p-4 border rounded g-1">
+			<!-- 日時と個数 -->
+			<div class="form-group row g-1">
+				<label for="datetime" class="col-sm-2 col-form-label">日時:</label>
+				<div class="col-sm-4">
+					<input type="datetime-local" class="form-control" id="datetime"
+						value="<?php echo date('Y-m-d\TH:i'); ?>" required>
+				</div>
 
-                <label for="quantity" class="col-sm-2 col-form-label">個数:</label>
-                <div class="col-sm-4">
-                    <input type="number" class="form-control" id="quantity" placeholder="個数を入力" required>
-                </div>
-            </div>
+				<label for="quantity" class="col-sm-2 col-form-label">個数:</label>
+				<div class="col-sm-4">
+					<input type="number" class="form-control" id="quantity"
+						placeholder="個数を入力" required>
+				</div>
+			</div>
 
-            <!-- 出庫元と入庫先 -->
-            <div class="form-group row">
-                <label for="source" class="col-sm-2 col-form-label">出庫元:</label>
-                <div class="col-sm-3">
-                    <select class="form-control" id="source" required>
-                        <option value="" disabled selected>出庫元を選択</option>
-                        <option value="warehouse1">倉庫1</option>
-                        <option value="warehouse2">倉庫2</option>
-                        <option value="warehouse3">倉庫3</option>
-                    </select>
-                </div>
+			<!-- 出庫元と入庫先 -->
+			<div class="form-group row g-1">
+				<label for="source" class="col-sm-2 col-form-label">出庫元:</label>
+				<div class="col-sm-3">
+					
+					<select class="form-select" aria-label="Area" required>
+					
+					<!-- th:field="*{inAreaIdInput}" -->
+						
+						<option value="">エリア</option>
+						<!-- メーカー一覧をThymeleafで繰り返し表示 -->
+						<option th:each="area : ${areaList}" th:value="${area.areaId}"
+							th:text="${area.area}"></option>
+					</select>
 
-                <div class="col-sm-2">→</div>
 
-                <label for="destination" class="col-sm-2 col-form-label">入庫先:</label>
-                <div class="col-sm-3">
-                    <select class="form-control" id="destination" required>
-                        <option value="" disabled selected>入庫先を選択</option>
-                        <option value="store1">店舗1</option>
-                        <option value="store2">店舗2</option>
-                        <option value="store3">店舗3</option>
-                    </select>
-                </div>
-            </div>
 
-            <!-- 登録 -->
-            <div class="form-group row">
-                <div class="col-sm-10 offset-sm-2 text-right">
-                    <button type="submit" class="btn btn-primary">登録</button>
-                </div>
-            </div>
-        </form>
 
-        <!-- 入出庫情報一覧 -->
-        <div class="mt-5">
-            <h2>入出庫情報一覧</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>日時</th>
-                        <th>個数</th>
-                        <th>出庫元</th>
-                        <th>入庫先</th>
-                        <th>在庫数</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2024/01/17 10:30</td>
-                        <td>5</td>
-                        <td>倉庫A</td>
-                        <td>店舗X</td>
-                        <td>100</td>
-                    </tr>
-                    <!-- Add more rows with sample data as needed -->
-                </tbody>
-            </table>
-        </div>
 
-    </main>
+				</div>
 
-    <!-- フッター -->
-    <div id="footer"></div>
+				<div class="col-sm-2">→</div>
 
-    <!-- Additional Scripts -->
-    <script src="js/script1.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+				<label for="destination" class="col-sm-2 col-form-label">入庫先:</label>
+				<div class="col-sm-3">
+					<select class="form-select" aria-label="Area" required>
+					
+					<!-- th:field="*{outAreaIdInput}" -->
+						
+						<option value="">エリア</option>
+						<!-- メーカー一覧をThymeleafで繰り返し表示 -->
+						<option th:each="area : ${areaList}" th:value="${area.areaId}"
+							th:text="${area.area}"></option>
+					</select>
+				</div>
+			</div>
+
+			<!-- 登録 -->
+			<div class="form-group row">
+				<div class="col-sm-10 offset-sm-2 text-right">
+					<button type="submit" class="btn btn-primary">登録</button>
+				</div>
+			</div>
+		</form>
+
+		<!-- 入出庫情報一覧 -->
+		<div class="mt-5">
+			<h2>入出庫情報一覧</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>日時</th>
+						<th>個数</th>
+						<th>出庫元</th>
+						<th>入庫先</th>
+						<th>在庫数</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>2024/01/17 10:30</td>
+						<td>5</td>
+						<td>倉庫A</td>
+						<td>店舗X</td>
+						<td>100</td>
+					</tr>
+					<!-- Add more rows with sample data as needed -->
+				</tbody>
+			</table>
+		</div>
+
+	</main>
+
+	<!-- フッター -->
+	<footer class="bg-primary p-3"> </footer>
+
+	<!-- Additional Scripts -->
+	<script src="js/script1.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
