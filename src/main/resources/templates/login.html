@@ -1,55 +1,85 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ログイン</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Custom CSS -->
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
+<meta lang="ja" charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ログイン</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<!-- Custom CSS -->
+<style>
+body {
+	background-color: #f8f9fa;
+}
 
-        .login-container {
-            max-width: 400px;
-            margin: auto;
-            margin-top: 100px;
-        }
+.login-container {
+	max-width: 400px;
+	margin: auto;
+	margin-top: 100px;
+}
 
-        .login-form {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+.login-form {
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+
+.form-group {
+	margin-bottom: 15px; /* フォームグループの下の余白を追加 */
+}
+
+.login-button {
+	width: 100%; /* ボタンを横幅100%に設定 */
+}
+</style>
 </head>
 
 <body>
-    <div class="container login-container">
-        <div class="login-form">
-            <h2 class="text-center mb-4">システム名</h2>
-            <form>
-                <div class="form-group">
-                    <label for="userId">ID:</label>
-                    <input type="text" class="form-control" id="userId" placeholder="ユーザーIDを入力" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">パスワード:</label>
-                    <input type="password" class="form-control" id="password" placeholder="パスワードを入力" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">ログイン</button>
-            </form>
-        </div>
-    </div>
+	<div class="container login-container">
+		<div class="login-form">
+			<h2 class="text-center mb-4">システム名</h2>
 
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+			<th:block th:unless="${session.userId}">
+				<form action="" method="post" th:object="${user}">
+                  <!-- エラーメッセージがある場合のみ表示 -->
+                    <div th:if="${#fields.hasErrors('userId')}" class="alert alert-danger" role="alert">
+                        <span th:errors="*{userId}" class="error"></span>
+                    </div>
+
+					<div class="form-group">
+						<input type="text" class="form-control" id="userId"
+							placeholder="ユーザーIDを入力" required th:field="*{userId}">
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" id="password"
+							placeholder="パスワードを入力" required th:field="*{password}">
+					</div>
+					<button type="submit" class="btn btn-primary login-button">ログイン</button>
+				</form>
+			</th:block>
+		</div>
+	</div>
+
+	<!-- Bootstrap JS and Popper.js -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
+
+<!-- Additional Scripts -->
+<script src="js/script1.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
 
 </html>
