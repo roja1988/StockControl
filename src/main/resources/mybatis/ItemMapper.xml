@@ -76,7 +76,8 @@
 		ON mi.scale_id =
 		ms.scale_id
 		LEFT JOIN data_stock ds
-		On mi.item_id = ds.item_id
+		On mi.item_id =
+		ds.item_id
 		<where>
 			<!-- 条件1: 型番が指定されている場合 -->
 			<if test="modelNumberInput != null and modelNumberInput != ''">
@@ -146,7 +147,8 @@
 	</select>
 
 	<!-- 製品マスターの追加 -->
-	<insert id="insert" parameterType="Item">
+	<insert id="insert" parameterType="Item" useGeneratedKeys='true'
+		keyProperty='itemId'>
 		INSERT INTO master_item VALUES
 		(
 		NULL,

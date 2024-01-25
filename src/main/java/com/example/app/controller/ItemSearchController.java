@@ -80,12 +80,14 @@ public class ItemSearchController {
 		try {
 			// itemServiceを介してItemSearchServiceImplに新しいアイテムを登録する
 			itemService.addItem(item);
-
+			System.out.println(item);
+			itemService.addStock(item);
 			// 登録が成功したら一覧画面にリダイレクト
 			return "redirect:/items";
 		} catch (Exception e) {
 			// エラーが発生した場合はエラーメッセージを表示
 			model.addAttribute("error", "登録に失敗しました。");
+			System.out.println(e);
 			return "items/itemadd";
 		}
 	}
@@ -110,7 +112,6 @@ public class ItemSearchController {
 		try {
 			// itemIdに対応するDBのデータをフォームの内容で更新
 			itemService.editItem(item);
-
 			// 更新が成功したら一覧画面にリダイレクト
 			return "redirect:/items";
 		} catch (Exception e) {
@@ -164,7 +165,6 @@ public class ItemSearchController {
 		model.addAttribute("areaList", areaList);
 		List<Inout> inoutList = itemService.getInoutList(itemId);
 		model.addAttribute("inoutList", inoutList);
-		System.out.println(inoutList);
 		return "items/inout";
 	}
 
@@ -174,13 +174,13 @@ public class ItemSearchController {
 		try {
 			// itemIdに対応するDBのデータをフォームの内容で更新
 			itemService.addInout(inout);
+			
 			// 更新が成功したら一覧画面にリダイレクト
 			return "redirect:/items";
 		} catch (Exception e) {
 			// エラーが発生した場合はエラーメッセージを表示
 			model.addAttribute("error", "更新に失敗しました。");
 			// エラー時は再び編集画面に戻る
-			System.out.println(e);
 			return "items/inout";
 		}
 

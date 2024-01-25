@@ -17,6 +17,7 @@ import com.example.app.mapper.InoutMapper;
 import com.example.app.mapper.ItemMapper;
 import com.example.app.mapper.MakerMapper;
 import com.example.app.mapper.ScaleMapper;
+import com.example.app.mapper.StockMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +32,7 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	private final ScaleMapper scaleMapper;
 	private final AreaMapper areaMapper;
 	private final InoutMapper inoutMapper;
+	private final StockMapper stockMapper;
 
 	// 全件取得
 	@Override
@@ -86,6 +88,12 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	public void addItem(Item item) throws Exception {
 		itemMapper.insert(item);
 	}
+	
+	// 在庫データ初期値の挿入
+	@Override
+	public void addStock(Item item) throws Exception {
+		stockMapper.insert(item);
+	}
 
 	// 製品マスターの削除
 	@Override
@@ -100,7 +108,9 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	}
 	
 	// 選択した製品マスターの入出庫履歴を取得
+	@Override
 	public List<Inout> getInoutList(Integer itemId) throws Exception {
 		return inoutMapper.getInoutList(itemId);
 	}
+	
 }

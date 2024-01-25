@@ -34,4 +34,6 @@ public interface ItemSearchService {
 	void addInout(Inout inout) throws Exception;
 	
 	List<Inout> getInoutList(Integer itemId) throws Exception;
+	
+	void addStock(Item item) throws Exception ;
 	}
