@@ -116,9 +116,9 @@
 							<label for="source" class="col-form-label">出庫元:</label>
 						</div>
 						<div class="col-sm-10">
-							<select class="form-select" aria-label="Area" required>
+							<select class="form-select" th:field="*{outAreaId}" aria-label="Area" required>
 								<option value="">出庫エリア</option>
-								<option th:each="area : ${areaList}" th:value="${outArea}"
+								<option th:each="area : ${areaList}" th:value="${area.areaId}"
 									th:text="${area.area}"></option>
 							</select>
 						</div>
@@ -137,9 +137,9 @@
 							<label for="destination" class="col-form-label">入庫先:</label>
 						</div>
 						<div class="col-sm-10">
-							<select class="form-select" aria-label="Area" required>
+							<select class="form-select" th:field="*{inAreaId}" aria-label="Area" required>
 								<option value="">入庫エリア</option>
-								<option th:each="area : ${areaList}" th:value="${inArea}"
+								<option th:each="area : ${areaList}" th:value="${area.areaId}"
 									th:text="${area.area}"></option>
 							</select>
 						</div>
@@ -169,6 +169,9 @@
 							<th>出庫元</th>
 							<th>入庫先</th>
 							<th>在庫数</th>
+							<th>登録者</th>
+							<th>登録日時</th>
+							
 						</tr>
 					</thead>
 					<tbody>
@@ -177,7 +180,10 @@
 							<td>[[${inout.inoutQuantity}]]</td>
 							<td>[[${inout.outArea}]]</td>
 							<td>[[${inout.inArea}]]</td>
-							<td>20</td>
+							<td>[[${inout.stockQuantity}]]</td>
+							<td>[[${inout.inoutUser}]]</td>
+							<td>[[${#temporals.format(inout.registerDatetime, 'yyyy/MM/dd hh:mm')}]]</td>
+							
 						</tr>
 					</tbody>
 

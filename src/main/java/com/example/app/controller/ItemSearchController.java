@@ -174,17 +174,14 @@ public class ItemSearchController {
 		try {
 			// itemIdに対応するDBのデータをフォームの内容で更新
 			itemService.addInout(inout);
-
 			// 更新が成功したら一覧画面にリダイレクト
 			return "redirect:/items";
-
 		} catch (Exception e) {
 			// エラーが発生した場合はエラーメッセージを表示
 			model.addAttribute("error", "更新に失敗しました。");
 			// エラー時は再び編集画面に戻る
 			System.out.println(e);
 			return "items/inout";
-
 		}
 
 	}

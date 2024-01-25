@@ -9,8 +9,8 @@
 		NULL,
 		#{itemId},
 		#{inoutQuantity},
-		#{outArea},
-		#{inArea},
+		#{outAreaId},
+		#{inAreaId},
 		#{inoutDatetime},
 		'user',
 		0,
@@ -20,12 +20,49 @@
 		'user'
 		)
 	</insert>
-	
-	<select id= "getInoutList" resultType="inout">
-		SELECT * FROM data_inout
-		WHERE delete_flg = 0
-		AND item_id = #{itemId}
-		ORDER BY inout_datetime
+
+	<select id="getInoutList" resultType="inout">
+		SELECT
+		di.inout_id as inoutId,
+		di.item_id as itemId,
+		di.inout_quantity as
+		inoutQuantity,
+		di.out_area_id as outAreaId,
+		mao.area as outArea,
+		di.in_area_id as inAreaId,
+		mai.area as inArea,
+		di.inout_datetime as
+		inoutDatetime,
+		ds.stock_quantity as stockQuantity,
+		di.register_datetime
+		as RegisterDatetime,
+		di.inout_user_id as inoutUserId,
+		mu.user_name as
+		inoutUser,
+		di.delete_flg as deleteFlg
+		FROM
+		data_inout di
+		LEFT JOIN
+		master_area mao
+		ON
+		di.out_area_id =
+		mao.area_id
+		LEFT JOIN master_area mai
+		ON di.in_area_id =
+		mai.area_id
+		LEFT JOIN
+		data_stock ds
+		ON di.item_id =
+		ds.item_id
+		LEFT JOIN master_user mu
+		ON
+		di.inout_user_id = mu.user_id
+		WHERE di.delete_flg = 0
+		AND di.item_id =
+		#{itemId}
+		ORDER BY
+		di.inout_datetime DESC
+
 	</select>
 
 </mapper>
