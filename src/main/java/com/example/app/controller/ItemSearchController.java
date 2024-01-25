@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.app.domain.Area;
 import com.example.app.domain.Genre;
+import com.example.app.domain.Inout;
 import com.example.app.domain.Item;
 import com.example.app.domain.Maker;
 import com.example.app.domain.Scale;
@@ -158,25 +159,31 @@ public class ItemSearchController {
 	@GetMapping("/inout/{itemId}")
 	public String inoutGet(@PathVariable Integer itemId, Model model) throws Exception {
 	    model.addAttribute("item", itemService.getItemByItemId(itemId));
+		model.addAttribute("inout", new Inout());
 	    List<Area> areaList = itemService.getAreaList();
 	    model.addAttribute("areaList", areaList);
-	    return "/inout";
+	    return "items/inout";
 	}
 	
 	// 入出庫データの登録
 	@PostMapping("/inout/{itemId}")
-	public String inoutPost(@PathVariable Integer itemId, @ModelAttribute("item") Item item, Model model) {
+	public String inoutPost(@PathVariable Integer itemId, @ModelAttribute("item") Item item, Inout inout, Model model) {
 		try {
 	        // itemIdに対応するDBのデータをフォームの内容で更新
-	        itemService.editItem(item);
+	        itemService.addInout(inout);
 
 	        // 更新が成功したら一覧画面にリダイレクト
+			System.out.println("成功：ここまできてる？");
 	        return "redirect:/items";
+	        
 	    } catch (Exception e) {
 	        // エラーが発生した場合はエラーメッセージを表示
 	        model.addAttribute("error", "更新に失敗しました。");
 	        // エラー時は再び編集画面に戻る
-	        return "items/itemedit";
+			System.out.println("エラー：ここまできてる？");
+			System.out.println(e);
+	        return "items/inout";
+
 	    }
 
 	}

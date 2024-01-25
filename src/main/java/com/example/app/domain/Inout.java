@@ -1,5 +1,7 @@
 package com.example.app.domain;
 
+import java.time.LocalDateTime;
+
 import lombok.Data;
 
 @Data
@@ -19,6 +21,9 @@ public class Inout {
 
 	// 入庫エリア
 	private int inArea;
+	
+	// 入出庫日時
+	private LocalDateTime inoutDatetime;
 	
 	// 削除フラグ
 	private int deleteFlg;

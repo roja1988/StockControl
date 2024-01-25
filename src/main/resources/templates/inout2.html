@@ -2,11 +2,12 @@
 <html lang="ja" xmlns:th="http://thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>入出庫登録</title>
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/css/style.css}">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>入出庫登録</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 
 </head>
 
@@ -23,7 +24,8 @@
 			<nav>
 				<ul class="nav nav-pills">
 					<li class="nav-item"><a class="nav-link" th:href="@{/items}">製品検索</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/items/add}">製品マスター追加</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/items/add}">製品マスター追加</a></li>
 					<!--
                 <li class="nav-item">
                     <a class="nav-link" href="area-search.html">エリア検索</a>
@@ -81,68 +83,72 @@
 
 			<!-- 入力フォーム -->
 			<div class="col-md-6">
-				<form class="p-4 border rounded g-1">
-					<!-- 日時と個数 -->
-					<div class="form-group row g-2 mb-3">
-						<div class="col-sm-2">
-							<label for="datetime" class="col-form-label">日　時:</label>
+				<form class="p-4 border rounded g-1" method="post" th:action="@{/items/inout/{itemId}(itemId=${item.itemId})}" th:object="${inout}">
+						<!-- 日時と個数 -->
+						<div class="form-group row g-2 mb-3">
+							<div class="col-sm-2">
+								<label for="datetime" class="col-form-label">日 時:</label>
+							</div>
+							<div class="col-sm-10">
+								<input type="datetime-local" th:field="*{inout_datetime}" class="form-control" id="datetime"
+									value="<?php echo date('Y-m-d\TH:i'); ?>" required>
+							</div>
 						</div>
-						<div class="col-sm-10">
-							<input type="datetime-local" class="form-control" id="datetime"
-								value="<?php echo date('Y-m-d\TH:i'); ?>" required>
-						</div>
-					</div>
 
-					<div class="form-group row g-2 mb-3">
-						<div class="col-sm-2">
-							<label for="quantity" class="col-form-label">個　数:</label>
+						<div class="form-group row g-2 mb-3">
+							<div class="col-sm-2">
+								<label for="quantity" class="col-form-label">個 数:</label>
+							</div>
+							<div class="col-sm-10">
+								<input type="number" th:field="*{inout_quaintity}" class="form-control" id="quantity"
+									placeholder="個数を入力" required>
+							</div>
 						</div>
-						<div class="col-sm-10">
-							<input type="number" class="form-control" id="quantity" placeholder="個数を入力" required>
-						</div>
-					</div>
 
-					<!-- 出庫元 -->
-					<div class="form-group row g-2 mb-3">
-						<div class="col-sm-2">
-							<label for="source" class="col-form-label">出庫元:</label>
+						<!-- 出庫元 -->
+						<div class="form-group row g-2 mb-3">
+							<div class="col-sm-2">
+								<label for="source" class="col-form-label">出庫元:</label>
+							</div>
+							<div class="col-sm-10">
+								<select class="form-select" aria-label="Area" required>
+									<option value="">出庫エリア</option>
+									<option th:each="area : ${areaList}" th:value="${inout.outArea}"
+										th:text="${area.area}"></option>
+								</select>
+							</div>
 						</div>
-						<div class="col-sm-10">
-							<select class="form-select" aria-label="Area" required>
-								<option value="">出庫エリア</option>
-								<option th:each="area : ${areaList}" th:value="${area.areaId}" th:text="${area.area}">
-								</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group row">
-						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
-							class="bi bi-arrow-down-circle" viewBox="0 0 24 24">
+						<div class="form-group row">
+							<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+								fill="currentColor" class="bi bi-arrow-down-circle"
+								viewBox="0 0 24 24">
 							<path fill-rule="evenodd"
-								d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
+									d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
 						</svg>
-					</div>
-					<!-- 入庫先 -->
-					<div class="form-group row g-2 mb-3">
-						<div class="col-sm-2">
-							<label for="destination" class="col-form-label">入庫先:</label>
 						</div>
-						<div class="col-sm-10">
-							<select class="form-select" aria-label="Area" required>
-								<option value="">入庫エリア</option>
-								<option th:each="area : ${areaList}" th:value="${area.areaId}" th:text="${area.area}">
-								</option>
-							</select>
+						<!-- 入庫先 -->
+						<div class="form-group row g-2 mb-3">
+							<div class="col-sm-2">
+								<label for="destination" class="col-form-label">入庫先:</label>
+							</div>
+							<div class="col-sm-10">
+								<select class="form-select" aria-label="Area" required>
+									<option value="">入庫エリア</option>
+									<option th:each="area : ${areaList}" th:value="${inout.inArea}"
+										th:text="${area.area}"></option>
+								</select>
+							</div>
 						</div>
-					</div>
 
-					<!-- 登録ボタン -->
-					<div class="form-group row">
-						<div class="col-sm-10 offset-sm-2 text-right">
-							<button type="submit" class="btn btn-primary">登録</button>
+						<!-- 登録ボタン -->
+						<div class="form-group row">
+							<div class="col-sm-10 offset-sm-2 text-right">
+								<button type="submit" class="btn btn-primary" name="action"
+									value="insert">登録</button>
+
+							</div>
 						</div>
-					</div>
-				</form>
+					</form>
 			</div>
 
 
@@ -172,7 +178,6 @@
 					</tbody>
 				</table>
 			</div>
-
 	</main>
 
 	<!-- フッター -->
@@ -181,7 +186,8 @@
 	<!-- Additional Scripts -->
 	<script src="js/script1.js"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
