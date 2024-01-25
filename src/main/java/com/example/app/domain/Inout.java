@@ -21,12 +21,18 @@ public class Inout {
 	
 	// 出庫元
 	private String outArea;
+	
+	// 出庫元フラグ
+	private Integer outAreaFlg;
 
 	// 入庫先ID
 	private Integer inAreaId;
 	
 	// 入庫先
 	private String inArea;
+	
+	// 入庫先フラグ
+	private Integer inAreaFlg;
 	
 	// 入出庫日時
 	private LocalDateTime inoutDatetime;

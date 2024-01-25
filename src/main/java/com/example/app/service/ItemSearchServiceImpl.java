@@ -91,7 +91,7 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	
 	// 在庫データ初期値の挿入
 	@Override
-	public void addStock(Item item) throws Exception {
+	public void addStockInit(Item item) throws Exception {
 		stockMapper.insert(item);
 	}
 
@@ -112,5 +112,18 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	public List<Inout> getInoutList(Integer itemId) throws Exception {
 		return inoutMapper.getInoutList(itemId);
 	}
+	
+	// 入出庫時の在庫の加算
+	@Override
+	public void addStock(Inout inout) throws Exception {
+		stockMapper.updateAdd(inout);
+	}
+	
+	// 入出庫時の在庫の減算
+	@Override
+	public void subtractStock(Inout inout) throws Exception {
+		stockMapper.updateSubtract(inout);
+	}
+
 	
 }
