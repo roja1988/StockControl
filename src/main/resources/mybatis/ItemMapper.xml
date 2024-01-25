@@ -8,58 +8,23 @@
 	<!-- 全件検索, 上限100件 -->
 	<select id="selectAll" resultType="Item">
 		SELECT
-		ds.stock_quantity,
-		mi.item_id,
-		mi.maker_id,
-		mm.maker,
-		mi.model_number,
-		mi.item_name,
-		mi.genre_id,
-		mg.genre,
-		mi.scale_id,
-		ms.scale,
-		mi.series,
-		mi.original,
-		mi.price,
-		mi.note,
-		mi.delete_flg
-		FROM master_item mi
-		LEFT JOIN
-		master_maker mm
-		ON
-		mi.maker_id = mm.maker_id
-		LEFT JOIN master_genre mg
-		ON
-		mi.genre_id =
-		mg.genre_id
-		LEFT JOIN master_scale ms
-		ON mi.scale_id =
-		ms.scale_id
-		LEFT JOIN data_stock ds
-		On mi.item_id = ds.item_id
-		WHERE
-		mi.delete_flg = 0
-		LIMIT 100
-	</select>
-
-	<!-- 複数条件による検索 -->
-	<select id="searchItems" resultType="Item" parameterType="Item">
-		SELECT
-		ds.stock_quantity,
-		mi.item_id,
-		mi.maker_id,
-		mm.maker,
-		mi.model_number,
-		mi.item_name,
-		mi.genre_id,
-		mg.genre,
-		mi.scale_id,
-		ms.scale,
-		mi.series,
-		mi.original,
-		mi.price,
-		mi.note,
-		mi.delete_flg
+		ds.stock_quantity as stockQuantity,
+		mi.item_id as itemId,
+		mi.maker_id as makerId,
+		mm.maker as maker,
+		mi.model_number as modelNumber,
+		mi.item_name as
+		itemName,
+		mi.genre_id as genreId,
+		mg.genre as genre,
+		mi.scale_id as
+		scaleId,
+		ms.scale as scale,
+		mi.series as series,
+		mi.original as oroginal,
+		mi.price as price,
+		mi.note as note,
+		mi.delete_flg as deleteFlg
 		FROM
 		master_item mi
 		LEFT JOIN
@@ -77,6 +42,53 @@
 		ms.scale_id
 		LEFT JOIN data_stock ds
 		On mi.item_id =
+		ds.item_id
+		WHERE
+		mi.delete_flg = 0
+		LIMIT 100
+	</select>
+
+	<!-- 複数条件による検索 -->
+	<select id="searchItems" resultType="Item" parameterType="Item">
+		SELECT
+		ds.stock_quantity as stockQuantity,
+		mi.item_id as itemId,
+		mi.maker_id as makerId,
+		mm.maker as maker,
+		mi.model_number as
+		modelNumber,
+		mi.item_name as itemName,
+		mi.genre_id as genreId,
+		mg.genre
+		as genre,
+		mi.scale_id as scaleId,
+		ms.scale as scale,
+		mi.series as series,
+		mi.original as oroginal,
+		mi.price as price,
+		mi.note as note,
+		mi.delete_flg as deleteFlg
+		FROM
+		master_item mi
+		LEFT JOIN
+		master_maker mm
+		ON
+		mi.maker_id =
+		mm.maker_id
+		LEFT
+		JOIN master_genre mg
+		ON
+		mi.genre_id =
+		mg.genre_id
+		LEFT JOIN
+		master_scale
+		ms
+		ON mi.scale_id =
+		ms.scale_id
+		LEFT JOIN
+		data_stock ds
+		On
+		mi.item_id =
 		ds.item_id
 		<where>
 			<!-- 条件1: 型番が指定されている場合 -->
@@ -116,32 +128,46 @@
 	<select id="selectByItemId" parameterType="int"
 		resultType="Item">
 		SELECT
-		mi.item_id,
-		mi.maker_id,
-		mm.maker,
-		mi.model_number,
-		mi.item_name,
-		mi.genre_id,
-		mg.genre,
-		mi.scale_id,
-		ms.scale,
-		mi.series,
-		mi.original,
-		mi.price,
-		mi.note,
-		mi.delete_flg
-		FROM master_item mi
+		ds.stock_quantity as stockQuantity,
+		mi.item_id as
+		itemId,
+		mi.maker_id as makerId,
+		mm.maker as maker,
+		mi.model_number as
+		modelNumber,
+		mi.item_name as itemName,
+		mi.genre_id as genreId,
+		mg.genre
+		as genre,
+		mi.scale_id as scaleId,
+		ms.scale as scale,
+		mi.series as series,
+		mi.original as oroginal,
+		mi.price as price,
+		mi.note as note,
+		mi.delete_flg as deleteFlg
+		FROM
+		master_item mi
 		LEFT JOIN
 		master_maker mm
 		ON
-		mi.maker_id = mm.maker_id
-		LEFT JOIN master_genre mg
+		mi.maker_id =
+		mm.maker_id
+		LEFT
+		JOIN master_genre mg
 		ON
 		mi.genre_id =
 		mg.genre_id
-		LEFT JOIN master_scale ms
+		LEFT JOIN
+		master_scale
+		ms
 		ON mi.scale_id =
 		ms.scale_id
+		LEFT JOIN
+		data_stock ds
+		On
+		mi.item_id =
+		ds.item_id
 		WHERE
 		mi.item_id = #{itemId}
 	</select>
