@@ -14,7 +14,7 @@ public class Inout {
 	private int itemId;
 	
 	// 入出庫数
-	private int inout_quantity;
+	private int inoutQuantity;
 	
 	// 出庫エリア
 	private int outArea;

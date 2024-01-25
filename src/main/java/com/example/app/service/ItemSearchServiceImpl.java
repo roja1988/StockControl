@@ -98,4 +98,9 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	public void addInout(Inout inout) throws Exception {
 		inoutMapper.insert(inout);
 	}
+	
+	// 選択した製品マスターの入出庫履歴を取得
+	public List<Inout> getInoutList(Integer itemId) throws Exception {
+		return inoutMapper.getInoutList(itemId);
+	}
 }

@@ -4,15 +4,15 @@
 <mapper namespace="com.example.app.mapper.InoutMapper">
 	<!-- 入出庫データの追加 -->
 	<insert id="insert" parameterType="Item">
-		INSERT INTO date_inout VALUES
+		INSERT INTO data_inout VALUES
 		(
 		NULL,
 		#{itemId},
 		#{inoutQuantity},
 		#{outArea},
 		#{inArea},
-		NOW(),
-		'user'
+		#{inoutDatetime},
+		'user',
 		0,
 		NOW(),
 		'user',
@@ -20,5 +20,12 @@
 		'user'
 		)
 	</insert>
+	
+	<select id= "getInoutList" resultType="inout">
+		SELECT * FROM data_inout
+		WHERE delete_flg = 0
+		AND item_id = #{itemId}
+		ORDER BY inout_datetime
+	</select>
 
 </mapper>
