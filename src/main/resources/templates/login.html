@@ -41,14 +41,20 @@ body {
 <body>
 	<div class="container login-container">
 		<div class="login-form">
-			<h2 class="text-center mb-4">システム名</h2>
+			<h1 class="text-primary fw-bold">StockControl</h1>
+
+			<th:block th:if="${session.userId}">
+				<a class="btn btn-primary btn-lg mt-4 mr-2" th:href="@{/items}">製品情報一覧へ</a>
+
+			</th:block>
 
 			<th:block th:unless="${session.userId}">
 				<form action="" method="post" th:object="${user}">
-                  <!-- エラーメッセージがある場合のみ表示 -->
-                    <div th:if="${#fields.hasErrors('userId')}" class="alert alert-danger" role="alert">
-                        <span th:errors="*{userId}" class="error"></span>
-                    </div>
+					<!-- エラーメッセージがある場合のみ表示 -->
+					<div th:if="${#fields.hasErrors('userId')}"
+						class="alert alert-danger" role="alert">
+						<span th:errors="*{userId}" class="error"></span>
+					</div>
 
 					<div class="form-group">
 						<input type="text" class="form-control" id="userId"

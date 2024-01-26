@@ -18,4 +18,5 @@ public interface ItemMapper {
 	void insert(Item item) throws Exception;
 	void update(Item item) throws Exception;
 	void delete(Item item) throws Exception;
+	Item countItem(Item item) throws Exception;
 }

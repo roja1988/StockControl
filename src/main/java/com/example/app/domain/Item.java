@@ -1,6 +1,7 @@
 package com.example.app.domain;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -34,6 +35,7 @@ public class Item {
 	private String itemName;
 
 	// メーカーID
+	@NotNull
 	private Integer makerId;
 
 	// メーカー
@@ -65,6 +67,9 @@ public class Item {
 	// 備考
 	@Size(max = 100)
 	private String note;
+	
+	// 既存製品マスターが存在するかカウント
+	private int count;
 
 	// 削除フラグ
 	private int deleteFlg;

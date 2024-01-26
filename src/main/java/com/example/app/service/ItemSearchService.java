@@ -38,13 +38,10 @@ public interface ItemSearchService {
 	
 	void addStockInit(Item item) throws Exception ;
 	
-	/*
-	void addStock(Inout inout) throws Exception;
-	
-	void subtractStock(Inout inout) throws Exception;
-	*/
-	
 	void addSubtractStock(Inout inout) throws Exception;
 	
 	List<Stock> getStock(Integer itemId) throws Exception;
+	
+	Item countItem(Item item) throws Exception;
+	
 	}

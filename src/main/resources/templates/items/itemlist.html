@@ -50,8 +50,7 @@
 		<!-- タイトルバー -->
 		<h2 class="text-primary fw-bold p-2 rounded">製品検索一覧</h2>
 		<!-- メッセージ表示 -->
-		<div class="alert alert-primary" role="alert">A simple primary
-			alert—check it out!</div>
+		<div th:if="${successMsg}" class="alert alert-primary" role="alert">[[${successMsg}]]</div>	
 		<!-- 検索条件 -->
 		<div class="accordion mt-3" id="searchAccordion">
 			<div class="accordion-item">

@@ -8,16 +8,18 @@
 	<!-- 全件検索, 上限100件 -->
 	<select id="selectAll" resultType="Item">
 		SELECT DISTINCT
-		<!-- ds.stock_quantity as stockQuantity, -->
-		mi.item_id as itemId,
+		mi.item_id as
+		itemId,
 		mi.maker_id as makerId,
 		mm.maker as maker,
-		mi.model_number as modelNumber,
+		mi.model_number as
+		modelNumber,
 		mi.item_name as
 		itemName,
 		mi.genre_id as
 		genreId,
-		mg.genre as genre,
+		mg.genre as
+		genre,
 		mi.scale_id as
 		scaleId,
 		ms.scale as scale,
@@ -42,10 +44,10 @@
 		ms
 		ON mi.scale_id =
 		ms.scale_id
-		<!-- LEFT JOIN data_stock ds On mi.item_id = ds.item_id -->
 		WHERE
 		mi.delete_flg = 0
-		LIMIT 100
+		ORDER BY makerId,modelNumber
+		LIMIT 200
 	</select>
 
 	<!-- 複数条件による検索 -->
@@ -122,6 +124,8 @@
 			<!-- 固定条件: delete_flg=0 -->
 			AND mi.delete_flg = 0
 		</where>
+		ORDER BY makerId,modelNumber
+		LIMIT 200
 	</select>
 
 	<select id="selectByItemId" parameterType="int"
@@ -164,10 +168,8 @@
 		ms
 		ON mi.scale_id =
 		ms.scale_id
-		<!--LEFT JOIN data_stock ds On mi.item_id = ds.item_id -->
 		WHERE
 		mi.item_id = #{itemId}
-		<!-- AND ds.register_date=(select max(register_date) -->
 	</select>
 
 	<!-- 製品マスターの追加 -->
@@ -218,5 +220,12 @@
 		WHERE
 		item_id = #{itemId}
 	</delete>
+
+	<!-- 既存製品マスターのカウント -->
+	<select id="countItem" parameterType="Item" resultType="Item">
+		SELECT count(*) as count FROM master_item
+		WHERE maker_id = #{makerId}
+		and model_number = #{modelNumber}
+	</select>
 
 </mapper>
