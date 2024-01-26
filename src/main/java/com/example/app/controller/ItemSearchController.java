@@ -17,6 +17,7 @@ import com.example.app.domain.Inout;
 import com.example.app.domain.Item;
 import com.example.app.domain.Maker;
 import com.example.app.domain.Scale;
+import com.example.app.domain.Stock;
 import com.example.app.service.ItemSearchService;
 
 import lombok.RequiredArgsConstructor;
@@ -164,6 +165,8 @@ public class ItemSearchController {
 		model.addAttribute("areaList", areaList);
 		List<Inout> inoutList = itemService.getInoutList(itemId);
 		model.addAttribute("inoutList", inoutList);
+		List<Stock> stockList = itemService.getStock(itemId);
+		model.addAttribute("stockList", stockList);
 		return "items/inout";
 	}
 
@@ -171,15 +174,18 @@ public class ItemSearchController {
 	@PostMapping("/inout/{itemId}")
 	public String inoutPost(@PathVariable Integer itemId, @ModelAttribute("item") Item item, Inout inout, Model model) {
 		try {
-			// itemIdに対応するDBのデータをフォームの内容で更新
+			// itemIdに対応する入出庫履歴データを登録
 			itemService.addInout(inout);
+			// 在庫の加減算
+			itemService.addSubtractStock(inout);
+			/*
 			// 在庫の加減算
 			if(inout.getOutAreaId() == 1) {
 				itemService.addStock(inout);
 			}
 			if(inout.getInAreaId() == 2 || inout.getInAreaId() ==3) {
 				itemService.subtractStock(inout);
-			}
+			}*/
 
 			// 更新が成功したら一覧画面にリダイレクト
 			return "redirect:/items/inout/{itemId}";

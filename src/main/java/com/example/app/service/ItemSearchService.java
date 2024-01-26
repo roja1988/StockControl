@@ -8,6 +8,7 @@ import com.example.app.domain.Inout;
 import com.example.app.domain.Item;
 import com.example.app.domain.Maker;
 import com.example.app.domain.Scale;
+import com.example.app.domain.Stock;
 
 public interface ItemSearchService {
 
@@ -37,7 +38,13 @@ public interface ItemSearchService {
 	
 	void addStockInit(Item item) throws Exception ;
 	
+	/*
 	void addStock(Inout inout) throws Exception;
 	
 	void subtractStock(Inout inout) throws Exception;
+	*/
+	
+	void addSubtractStock(Inout inout) throws Exception;
+	
+	List<Stock> getStock(Integer itemId) throws Exception;
 	}

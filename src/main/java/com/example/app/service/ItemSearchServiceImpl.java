@@ -11,6 +11,7 @@ import com.example.app.domain.Inout;
 import com.example.app.domain.Item;
 import com.example.app.domain.Maker;
 import com.example.app.domain.Scale;
+import com.example.app.domain.Stock;
 import com.example.app.mapper.AreaMapper;
 import com.example.app.mapper.GenreMapper;
 import com.example.app.mapper.InoutMapper;
@@ -112,7 +113,7 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	public List<Inout> getInoutList(Integer itemId) throws Exception {
 		return inoutMapper.getInoutList(itemId);
 	}
-	
+	/*
 	// 入出庫時の在庫の加算
 	@Override
 	public void addStock(Inout inout) throws Exception {
@@ -123,6 +124,20 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	@Override
 	public void subtractStock(Inout inout) throws Exception {
 		stockMapper.updateSubtract(inout);
+	}
+	*/
+	// 入出庫時の在庫の減算
+	@Override
+	public void addSubtractStock(Inout inout) throws Exception {
+		stockMapper.updateSubtract(inout);
+		stockMapper.updateAdd(inout);
+	}
+	
+	// 在庫情報の取得
+	@Override
+	public List<Stock> getStock(Integer itemId) throws Exception {
+		return stockMapper.select(itemId);
+		
 	}
 
 	

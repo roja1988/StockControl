@@ -74,7 +74,7 @@
 				<div class="col-md-6 mb-3">
 					<label for="genre" class="form-label">ジャンル</label>
 					<select th:field="*{genreId}" class="form-select" id="genre">
-						<option value="">メーカー</option>
+						<option value="">ジャンル</option>
 						<!-- ジャンル一覧をThymeleafで繰り返し表示 -->
 						<option th:each="genre : ${genreList}" th:value="${genre.genreId}" th:text="${genre.genre}">
 						</option>
