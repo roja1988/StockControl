@@ -74,6 +74,9 @@ public class Item {
 	// 削除フラグ
 	private int deleteFlg;
 	
+	// ユーザーID
+	private String userId;
+	
 	/*
 	 * 検索フォームからの入力を受け取るためのフィールド
 	 * 

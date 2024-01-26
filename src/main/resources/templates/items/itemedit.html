@@ -49,7 +49,7 @@
 		<form class="p-4 border rounded" method="post"
 			th:action="@{/items/edit/{itemId}(itemId=${item.itemId})}"
 			th:object="${item}">
-			<p><input type="text"  th:value="${session.userId}"/></p>
+			<p><input type="text" th:field="${session.userId}" th:value="*{userId}"/></p>
 			<p>Item ID: [[${item.itemId}]]</p>
 			<div class="row g-3">
 				<!-- メーカー -->
