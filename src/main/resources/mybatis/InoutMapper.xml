@@ -12,12 +12,12 @@
 		#{outAreaId},
 		#{inAreaId},
 		#{inoutDatetime},
-		'user',
+		#{inoutUserId},
 		0,
 		NOW(),
-		'user',
+		#{userId},
 		NOW(),
-		'user'
+		#{userId}
 		)
 	</insert>
 
@@ -38,6 +38,7 @@
 		di.inout_user_id as inoutUserId,
 		mu.user_name as
 		inoutUser,
+		di.register_datetime as registerDatetime,
 		di.delete_flg as deleteFlg
 		FROM
 		data_inout di

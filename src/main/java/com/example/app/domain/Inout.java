@@ -49,6 +49,9 @@ public class Inout {
 	// 登録日時
 	private LocalDateTime registerDatetime;
 	
+	// ユーザーID
+	private String userId;
+	
 	// 削除フラグ
 	private int deleteFlg;
 	

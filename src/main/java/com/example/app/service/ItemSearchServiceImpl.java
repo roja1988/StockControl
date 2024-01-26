@@ -94,6 +94,7 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	@Override
 	public void addStockInit(Item item) throws Exception {
 		stockMapper.insert(item);
+		
 	}
 
 	// 製品マスターの削除

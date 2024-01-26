@@ -2,12 +2,11 @@
 <html lang="ja" xmlns:th="http://thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>入出庫データ</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{/css/style.css}">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>入出庫データ</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 
 </head>
 
@@ -24,8 +23,7 @@
 			<nav>
 				<ul class="nav nav-pills">
 					<li class="nav-item"><a class="nav-link" th:href="@{/items}">製品検索</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/items/add}">製品マスター追加</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/items/add}">製品マスター追加</a></li>
 					<!--
                 <li class="nav-item">
                     <a class="nav-link" href="area-search.html">エリア検索</a>
@@ -48,9 +46,13 @@
 	<main class="container mt-4">
 		<!-- タイトルバー -->
 		<h2 class="text-success fw-bold p-2 rounded">入出庫登録</h2>
-
+		<!-- 同じメーカー・型番が存在するときエラーを出す -->
+		<div th:if="${successMsg}" class="alert alert-primary" role="alert">[[${successMsg}]]</div>
 		<!-- 製品情報と在庫情報テーブルを左側に、入力フォームを右側に配置 -->
 		<div class="row mb-4">
+			<!-- 登録ユーザーID, 製品IDを保持 -->
+			<input type="hidden" name="userId" th:value="${session.userId}" />
+			<input type="hidden" th:field="*{itemId}">
 			<!-- 製品情報と在庫情報テーブル -->
 			<div class="col-md-6">
 				<div class="card mb-4">
@@ -59,9 +61,6 @@
 						<h2>製品情報</h2>
 						<div class="row">
 							<div class="col-3">
-								<p class="mb-1">
-									<strong>製品ID:</strong>
-								</p>
 								<p class="mb-1">
 									<strong>製品名:</strong>
 								</p>
@@ -73,7 +72,6 @@
 								</p>
 							</div>
 							<div class="col-9">
-								<p class="mb-1">[[${item.itemId}]]</p>
 								<p class="mb-1">[[${item.itemName}]]</p>
 								<p class="mb-1">[[${item.maker}]]</p>
 								<p class="mb-1">[[${item.modelNumber}]]</p>
@@ -109,8 +107,7 @@
 			<div class="col-md-6">
 
 				<form class="p-4 border rounded g-1" method="post"
-					th:action="@{/items/inout/{itemId}(itemId=${item.itemId})}"
-					th:object="${inout}">
+					th:action="@{/items/inout/{itemId}(itemId=${item.itemId})}" th:object="${inout}">
 					<h2>データ登録</h2>
 					<!-- 日時と個数 -->
 
@@ -119,8 +116,7 @@
 							<label for="datetime" class="col-form-label">日 時:</label>
 						</div>
 						<div class="col-sm-10">
-							<input type="datetime-local" th:field="*{inoutDatetime}"
-								class="form-control" id="datetime"
+							<input type="datetime-local" th:field="*{inoutDatetime}" class="form-control" id="datetime"
 								value="<?php echo date('Y-m-d\TH:i'); ?>" required>
 						</div>
 					</div>
@@ -131,8 +127,8 @@
 							<label for="quantity" class="col-form-label">個 数:</label>
 						</div>
 						<div class="col-sm-10">
-							<input type="number" th:field="*{inoutQuantity}"
-								class="form-control" id="quantity" placeholder="個数を入力" required>
+							<input type="number" th:field="*{inoutQuantity}" class="form-control" id="quantity"
+								placeholder="個数を入力" required>
 						</div>
 					</div>
 
@@ -142,18 +138,16 @@
 							<label for="source" class="col-form-label">出庫元:</label>
 						</div>
 						<div class="col-sm-10">
-							<select class="form-select" th:field="*{outAreaId}"
-								aria-label="Area" required>
+							<select class="form-select" th:field="*{outAreaId}" aria-label="Area" required>
 								<option value="">出庫エリア</option>
-								<option th:each="area : ${areaList}" th:value="${area.areaId}"
-									th:text="${area.area}"></option>
+								<option th:each="area : ${areaList}" th:value="${area.areaId}" th:text="${area.area}">
+								</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group row">
-						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
-							fill="currentColor" class="bi bi-arrow-down-circle"
-							viewBox="0 0 24 24">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
+							class="bi bi-arrow-down-circle" viewBox="0 0 24 24">
 							<path fill-rule="evenodd"
 								d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
 						</svg>
@@ -164,11 +158,10 @@
 							<label for="destination" class="col-form-label">入庫先:</label>
 						</div>
 						<div class="col-sm-10">
-							<select class="form-select" th:field="*{inAreaId}"
-								aria-label="Area" required>
+							<select class="form-select" th:field="*{inAreaId}" aria-label="Area" required>
 								<option value="">入庫エリア</option>
-								<option th:each="area : ${areaList}" th:value="${area.areaId}"
-									th:text="${area.area}"></option>
+								<option th:each="area : ${areaList}" th:value="${area.areaId}" th:text="${area.area}">
+								</option>
 							</select>
 						</div>
 					</div>
@@ -176,8 +169,7 @@
 					<!-- 登録ボタン -->
 					<div class="form-group row">
 						<div class="col-sm-10 offset-sm-2 text-right">
-							<button type="submit" class="btn btn-success" name="action"
-								value="insert">登録</button>
+							<button type="submit" class="btn btn-success" name="action" value="insert">登録</button>
 
 						</div>
 					</div>
@@ -186,7 +178,7 @@
 
 
 
-			<!-- 入出庫情報一覧 -->
+			<!-- 入出庫データ一覧 -->
 			<div class="mt-5">
 				<h2>入出庫データ一覧</h2>
 				<table class="table">
@@ -196,11 +188,8 @@
 							<th>個数</th>
 							<th>出庫元</th>
 							<th>入庫先</th>
-							<!-- TODO 登録者がセッションから出せるようになったら出力
 							<th>登録者</th>
 							<th>登録日時</th>
-							-->
-
 						</tr>
 					</thead>
 					<tbody>
@@ -210,16 +199,18 @@
 							<td>[[${inout.inoutQuantity}]]</td>
 							<td>[[${inout.outArea}]]</td>
 							<td>[[${inout.inArea}]]</td>
-							<!-- TODO 登録者がセッションから出せるようになったら出力
 							<td>[[${inout.inoutUser}]]</td>
-							<td>[[${#temporals.format(inout.registerDatetime, 'yyyy/MM/dd hh:mm')}]]</td>
-							-->
-
+							<td>[[${#temporals.format(inout.registerDatetime, 'yyyy/MM/dd
+								hh:mm')}]]</td>						
 						</tr>
 					</tbody>
 
 				</table>
 			</div>
+			</form>
+			<p class="mt-4">
+				<a class="btn btn-primary" th:href="@{/items}">一覧に戻る</a>
+			</p>
 	</main>
 
 	<!-- フッター -->
@@ -228,8 +219,7 @@
 	<!-- Additional Scripts -->
 	<script src="js/script1.js"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -5,32 +5,37 @@
 
 	<!-- SQL 在庫データ -->
 
-	<insert id="insert" parameterType="Integer">
+	<insert id="insert" parameterType="Item">
 		INSERT INTO data_stock VALUES
-		(#{itemId},1,0,0,NOW(),'user',NOW(),'user'),
-		(#{itemId},2,0,0,NOW(),'user',NOW(),'user'),
-		(#{itemId},3,0,0,NOW(),'user',NOW(),'user'),
-		(#{itemId},4,0,0,NOW(),'user',NOW(),'user'),
-		(#{itemId},5,0,0,NOW(),'user',NOW(),'user'),
-		(#{itemId},6,0,0,NOW(),'user',NOW(),'user'),
-		(#{itemId},7,0,0,NOW(),'user',NOW(),'user')
+		(#{itemId},1,0,0,NOW(),#{userId},NOW(),#{userId}),
+		(#{itemId},2,0,0,NOW(),#{userId},NOW(),#{userId}),
+		(#{itemId},3,0,0,NOW(),#{userId},NOW(),#{userId}),
+		(#{itemId},4,0,0,NOW(),#{userId},NOW(),#{userId}),
+		(#{itemId},5,0,0,NOW(),#{userId},NOW(),#{userId}),
+		(#{itemId},6,0,0,NOW(),#{userId},NOW(),#{userId}),
+		(#{itemId},7,0,0,NOW(),#{userId},NOW(),#{userId})
 	</insert>
 
 	<update id="updateSubtract" parameterType="Inout">
 		UPDATE data_stock
 		SET
 		stock_quantity = stock_quantity - #{inoutQuantity},
-		update_date = NOW()
+		update_date =
+		NOW(),
+		update_user_id = #{userId}
 		WHERE item_id =
 		#{itemId}
-		and area_id =#{outAreaId}
+		and area_id
+		=#{outAreaId}
 	</update>
 
 	<update id="updateAdd" parameterType="Inout">
 		UPDATE data_stock
 		SET
 		stock_quantity = stock_quantity + #{inoutQuantity},
-		update_date = NOW()
+		update_date =
+		NOW(),
+		update_user_id = #{userId}
 		WHERE item_id =
 		#{itemId}
 		and area_id= #{inAreaId}
@@ -40,10 +45,12 @@
 		SELECT
 		ma.area,
 		CASE WHEN ds.area_id = 1 THEN ABS(ds.stock_quantity)
-		ELSE stock_quantity END as stockQuantity
+		ELSE
+		stock_quantity END as stockQuantity
 		FROM data_stock ds
 		JOIN
-		master_area ma
+		master_area
+		ma
 		ON ds.area_id = ma.area_id
 		WHERE item_id = #{itemId}
 	</select>

@@ -189,9 +189,9 @@
 		#{note},
 		0,
 		NOW(),
-		'user',
+		#{userId},
 		NOW(),
-		'user'
+		#{userId}
 		)
 	</insert>
 

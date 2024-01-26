@@ -19,4 +19,7 @@ public class Stock {
 	
 	// 削除フラグ
 	private Integer deleteFlg;
+	
+	// ユーザーID
+	private String userId;
 }

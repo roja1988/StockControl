@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.app.domain.Area;
 import com.example.app.domain.Genre;
 import com.example.app.domain.Inout;
 import com.example.app.domain.Item;
 import com.example.app.domain.Maker;
 import com.example.app.domain.Scale;
+import com.example.app.domain.Stock;
 import com.example.app.service.ItemSearchService;
 
 import jakarta.validation.Valid;
@@ -102,7 +104,7 @@ public class ItemSearchController {
 			itemService.addItem(item);
 			itemService.addStockInit(item);
 			// 登録が成功したら一覧画面にリダイレクト
-			ra.addFlashAttribute("successMsg", item.getMaker() + " : " +item.getModelNumber() + " を登録しました。");
+			ra.addFlashAttribute("successMsg", item.getModelNumber() + " : " +item.getItemName() + " を登録しました。");
 			return "redirect:/items";
 		} catch (Exception e) {
 			// エラーが発生した場合はエラーメッセージを表示
@@ -141,7 +143,7 @@ public class ItemSearchController {
 			// itemIdに対応するDBのデータをフォームの内容で更新
 			itemService.editItem(item);
 			// 更新が成功したら一覧画面にリダイレクト
-			ra.addFlashAttribute("successMsg", item.getMaker() + " : " +item.getModelNumber() + " を更新しました。");
+			ra.addFlashAttribute("successMsg", item.getModelNumber() + " : " +item.getItemName() + " を更新しました。");
 			return "redirect:/items";
 		} catch (Exception e) {
 			// エラーが発生した場合はエラーメッセージを表示
@@ -184,8 +186,7 @@ public class ItemSearchController {
 			// itemIdに対応するDBのデータを削除
 			itemService.deleteItem(item);
 			// 削除が成功したら一覧画面にリダイレクト
-			ra.addFlashAttribute("successMsg", item.getMaker() + " : " + item.getModelNumber() + " を削除しました。");
-			System.out.println(item.getMaker());
+			ra.addFlashAttribute("successMsg", item.getModelNumber() + " : " +item.getItemName() + " を削除しました。");
 			return "redirect:/items";
 		} catch (Exception e) {
 			// エラーが発生した場合はエラーメッセージを表示
@@ -206,7 +207,13 @@ public class ItemSearchController {
 	public String inoutGet(@PathVariable Integer itemId, Model model) throws Exception {
 		model.addAttribute("item", itemService.getItemByItemId(itemId));
 		model.addAttribute("inout", new Inout());
+		List<Area> areaList = itemService.getAreaList();
+		model.addAttribute("areaList", areaList);
 		setupLists(model); // リストのセットアップ
+		List<Inout> inoutList = itemService.getInoutList(itemId);
+		model.addAttribute("inoutList",inoutList);
+		List<Stock> stockList = itemService.getStock(itemId);
+		model.addAttribute("stockList",stockList);
 		return "items/inout";
 	}
 
@@ -219,12 +226,14 @@ public class ItemSearchController {
 	 * @return
 	 */
 	@PostMapping("/inout/{itemId}")
-	public String inoutPost(@PathVariable Integer itemId, @ModelAttribute("item") Item item, Inout inout, Model model) {
+	public String inoutPost(@PathVariable Integer itemId, @ModelAttribute("item") Item item, Inout inout, RedirectAttributes ra, Model model) {
 		try {
 			// itemIdに対応する入出庫履歴データを登録
 			itemService.addInout(inout);
 			// 在庫の加減算
 			itemService.addSubtractStock(inout);
+			System.out.println(inout);
+			ra.addFlashAttribute("successMsg", "入出庫データを登録しました。");
 			// 更新が成功したら一覧画面にリダイレクト
 			return "redirect:/items/inout/{itemId}";
 		} catch (Exception e) {
