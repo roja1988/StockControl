@@ -178,14 +178,14 @@ public class ItemSearchController {
 	 * @return
 	 */
 	@PostMapping("/delete/{itemId}")
-	public String deleteItem(@PathVariable Integer itemId, @ModelAttribute("item") Item item, RedirectAttributes ra, Model model) {
+	public String deleteItem(@PathVariable Integer itemId, @ModelAttribute("item") Item item, RedirectAttributes ra, Model model ) {
 
 		try {
 			// itemIdに対応するDBのデータを削除
 			itemService.deleteItem(item);
-			System.out.println("成功");
 			// 削除が成功したら一覧画面にリダイレクト
-			ra.addFlashAttribute("successMsg", item.getMaker() + " : " +item.getModelNumber() + " を削除しました。");
+			ra.addFlashAttribute("successMsg", item.getMaker() + " : " + item.getModelNumber() + " を削除しました。");
+			System.out.println(item.getMaker());
 			return "redirect:/items";
 		} catch (Exception e) {
 			// エラーが発生した場合はエラーメッセージを表示

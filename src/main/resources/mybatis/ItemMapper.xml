@@ -211,7 +211,7 @@
 		price = #{price},
 		note = #{note},
 		update_date = now(),
-		update_user_id = 'user'
+		update_user_id = #{userId}
 		WHERE item_id = #{itemId}
 	</update>
 

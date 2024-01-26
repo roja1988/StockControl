@@ -63,7 +63,7 @@
 				<!-- メーカー -->
 				<div class="col-md-6 mb-3">
 					<label for="maker" class="form-label">メーカー</label> <select
-						th:field="*{makerId}" class="form-select" id="maker" disabled>
+						th:field="*{makerId}" class="form-select" id="maker" readonly>
 						<option value="">メーカー</option>
 						<!-- メーカー一覧をThymeleafで繰り返し表示 -->
 						<option th:each="maker : ${makerList}" th:value="${maker.makerId}"
@@ -75,14 +75,14 @@
 				<div class="col-md-6 mb-3">
 					<label for="itemNumber" class="form-label">型番</label> <input
 						type="text" required th:field="*{modelNumber}"
-						class="form-control" id="itemNumber" placeholder="型番" disabled>
+						class="form-control" id="itemNumber" placeholder="型番" readonly>
 				</div>
 
 				<!-- 製品名 -->
 				<div class="col-md-6 mb-3">
 					<label for="itemName" class="form-label">製品名</label> <input
 						type="text" required th:field="*{itemName}" class="form-control"
-						id="itemName" placeholder="製品名" disabled>
+						id="itemName" placeholder="製品名" readonly>
 				</div>
 
 
@@ -90,7 +90,7 @@
 				<!-- ジャンル -->
 				<div class="col-md-6 mb-3">
 					<label for="genre" class="form-label">ジャンル</label> <select
-						th:field="*{genreId}" class="form-select" id="genre" disabled>
+						th:field="*{genreId}" class="form-select" id="genre" readonly>
 						<option value="">ジャンル</option>
 						<!-- ジャンル一覧をThymeleafで繰り返し表示 -->
 						<option th:each="genre : ${genreList}" th:value="${genre.genreId}"
@@ -101,7 +101,7 @@
 				<!-- スケール -->
 				<div class="col-md-6 mb-3">
 					<label for="scale" class="form-label">スケール</label> <select
-						th:field="*{scaleId}" class="form-select" id="scale" disabled>
+						th:field="*{scaleId}" class="form-select" id="scale" readonly>
 						<option value="">スケール</option>
 						<!-- スケール一覧をThymeleafで繰り返し表示 -->
 						<option th:each="scale : ${scaleList}" th:value="${scale.scaleId}"
@@ -112,22 +112,22 @@
 				<div class="col-md-6 mb-3">
 					<label for="series" class="form-label">シリーズ</label> <input
 						type="text" th:field="*{series}" class="form-control" id="series"
-						placeholder="シリーズ" disabled>
+						placeholder="シリーズ" readonly>
 				</div>
 				<div class="col-md-6 mb-3">
 					<label for="original" class="form-label">原作品</label> <input
 						type="text" th:field="*{original}" class="form-control"
-						id="original" placeholder="原作品" disabled>
+						id="original" placeholder="原作品" readonly>
 				</div>
 				<div class="col-md-6 mb-3">
 					<label for="price" class="form-label">価格</label> <input
 						type="number" th:field="*{price}" class="form-control" id="price"
-						placeholder="価格" disabled>
+						placeholder="価格" readonly>
 				</div>
 				<div class="col-12 mb-3">
 					<label for="note" class="form-label">備考</label>
 					<textarea class="form-control" th:field="*{note}" id="note"
-						rows="3" disabled></textarea>
+						rows="3" readonly></textarea>
 				</div>
 			</div>
 			<div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">

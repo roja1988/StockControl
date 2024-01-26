@@ -43,6 +43,7 @@ public class LoginController {
 		
 		// 正しいID/PW
 		session.setAttribute("userId", user.getUserId());
+		System.out.println(session);
 		return"redirect:/items";
 	}
 	
