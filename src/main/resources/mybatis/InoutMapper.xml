@@ -12,7 +12,7 @@
 		#{outAreaId},
 		#{inAreaId},
 		#{inoutDatetime},
-		#{inoutUserId},
+		#{userId},
 		0,
 		NOW(),
 		#{userId},

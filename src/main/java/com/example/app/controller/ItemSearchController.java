@@ -22,6 +22,7 @@ import com.example.app.domain.Scale;
 import com.example.app.domain.Stock;
 import com.example.app.service.ItemSearchService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -29,14 +30,12 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/items")
 @RequiredArgsConstructor
 public class ItemSearchController {
-	
-	
+
 	@Autowired
 	public final ItemSearchService itemService;
 
 	public String successMsg;
-	
-	
+
 	/**
 	 * 初期画面：全件検索（上限200件）の表示
 	 * @param model
@@ -104,7 +103,7 @@ public class ItemSearchController {
 			itemService.addItem(item);
 			itemService.addStockInit(item);
 			// 登録が成功したら一覧画面にリダイレクト
-			ra.addFlashAttribute("successMsg", item.getModelNumber() + " : " +item.getItemName() + " を登録しました。");
+			ra.addFlashAttribute("successMsg", item.getModelNumber() + " : " + item.getItemName() + " を登録しました。");
 			return "redirect:/items";
 		} catch (Exception e) {
 			// エラーが発生した場合はエラーメッセージを表示
@@ -137,13 +136,14 @@ public class ItemSearchController {
 	 * @throws Exception 
 	 */
 	@PostMapping("/edit/{itemId}")
-	public String updateItemFromEditGet(@PathVariable Integer itemId, @ModelAttribute("item") Item item, RedirectAttributes ra, Model model)
+	public String updateItemFromEditGet(@PathVariable Integer itemId, @ModelAttribute("item") Item item,
+			RedirectAttributes ra, Model model)
 			throws Exception {
 		try {
 			// itemIdに対応するDBのデータをフォームの内容で更新
 			itemService.editItem(item);
 			// 更新が成功したら一覧画面にリダイレクト
-			ra.addFlashAttribute("successMsg", item.getModelNumber() + " : " +item.getItemName() + " を更新しました。");
+			ra.addFlashAttribute("successMsg", item.getModelNumber() + " : " + item.getItemName() + " を更新しました。");
 			return "redirect:/items";
 		} catch (Exception e) {
 			// エラーが発生した場合はエラーメッセージを表示
@@ -180,13 +180,14 @@ public class ItemSearchController {
 	 * @return
 	 */
 	@PostMapping("/delete/{itemId}")
-	public String deleteItem(@PathVariable Integer itemId, @ModelAttribute("item") Item item, RedirectAttributes ra, Model model ) {
+	public String deleteItem(@PathVariable Integer itemId, @ModelAttribute("item") Item item, RedirectAttributes ra,
+			Model model) {
 
 		try {
 			// itemIdに対応するDBのデータを削除
 			itemService.deleteItem(item);
 			// 削除が成功したら一覧画面にリダイレクト
-			ra.addFlashAttribute("successMsg", item.getModelNumber() + " : " +item.getItemName() + " を削除しました。");
+			ra.addFlashAttribute("successMsg", item.getModelNumber() + " : " + item.getItemName() + " を削除しました。");
 			return "redirect:/items";
 		} catch (Exception e) {
 			// エラーが発生した場合はエラーメッセージを表示
@@ -211,9 +212,9 @@ public class ItemSearchController {
 		model.addAttribute("areaList", areaList);
 		setupLists(model); // リストのセットアップ
 		List<Inout> inoutList = itemService.getInoutList(itemId);
-		model.addAttribute("inoutList",inoutList);
+		model.addAttribute("inoutList", inoutList);
 		List<Stock> stockList = itemService.getStock(itemId);
-		model.addAttribute("stockList",stockList);
+		model.addAttribute("stockList", stockList);
 		return "items/inout";
 	}
 
@@ -226,13 +227,16 @@ public class ItemSearchController {
 	 * @return
 	 */
 	@PostMapping("/inout/{itemId}")
-	public String inoutPost(@PathVariable Integer itemId, @ModelAttribute("item") Item item, Inout inout, RedirectAttributes ra, Model model) {
+	public String inoutPost(@PathVariable Integer itemId, @ModelAttribute("item") Item item, Inout inout,
+			RedirectAttributes ra, Model model, HttpSession session) {
 		try {
+			// userId をセッションから取得
+			String userId = (String) session.getAttribute("userId");
+			System.out.println(userId);
 			// itemIdに対応する入出庫履歴データを登録
-			itemService.addInout(inout);
+			itemService.addInout(userId, inout);
 			// 在庫の加減算
 			itemService.addSubtractStock(inout);
-			System.out.println(inout);
 			ra.addFlashAttribute("successMsg", "入出庫データを登録しました。");
 			// 更新が成功したら一覧画面にリダイレクト
 			return "redirect:/items/inout/{itemId}";

@@ -51,8 +51,8 @@
 		<!-- 製品情報と在庫情報テーブルを左側に、入力フォームを右側に配置 -->
 		<div class="row mb-4">
 			<!-- 登録ユーザーID, 製品IDを保持 -->
-			<input type="hidden" name="userId" th:value="${session.userId}" />
 			<input type="hidden" th:field="*{itemId}">
+
 			<!-- 製品情報と在庫情報テーブル -->
 			<div class="col-md-6">
 				<div class="card mb-4">
@@ -201,10 +201,9 @@
 							<td>[[${inout.inArea}]]</td>
 							<td>[[${inout.inoutUser}]]</td>
 							<td>[[${#temporals.format(inout.registerDatetime, 'yyyy/MM/dd
-								hh:mm')}]]</td>						
+								hh:mm')}]]</td>
 						</tr>
 					</tbody>
-
 				</table>
 			</div>
 			</form>

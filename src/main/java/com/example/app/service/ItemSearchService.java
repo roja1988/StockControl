@@ -32,7 +32,7 @@ public interface ItemSearchService {
 	
 	void deleteItem(Item item) throws Exception;
 	
-	void addInout(Inout inout) throws Exception;
+	void addInout(String userId, Inout inout) throws Exception;
 	
 	List<Inout> getInoutList(Integer itemId) throws Exception;
 	

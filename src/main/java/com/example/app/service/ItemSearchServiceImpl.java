@@ -105,7 +105,8 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 
 	// 入出庫データの登録
 	@Override
-	public void addInout(Inout inout) throws Exception {
+	public void addInout(String userId, Inout inout) throws Exception {
+		inout.setUserId(userId);
 		inoutMapper.insert(inout);
 	}
 	
