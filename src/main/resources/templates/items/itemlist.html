@@ -143,7 +143,6 @@
 				<thead>
 					<tr>
 						<th scope="col">製品ID</th>
-						<th scope="col">在庫数</th>
 						<th scope="col">メーカー</th>
 						<th scope="col">型番</th>
 						<th scope="col">製品名</th>
@@ -160,7 +159,6 @@
 				<tbody>
 					<tr th:each="item : ${items}">
 						<td>[[${item.itemId}]]</td>
-						<td>[[${item.stockQuantity}]]</td>
 						<td>[[${item.maker}]]</td>
 						<td>[[${item.modelNumber}]]</td>
 						<td>[[${item.itemName}]]</td>
