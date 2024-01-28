@@ -55,18 +55,18 @@
 				<div class="col-md-6 mb-3">
 					<label for="itemNumber" class="form-label">メーカー</label>
 					<input type="text" th:value="*{maker}" class="form-control" id="maker" readonly>
-					<input type="hidden" th:field="*{makerId}"readonly>
+					<input type="hidden" th:field="*{makerId}" readonly>
 				</div>
 
 				<!-- 型番 -->
 				<div class="col-md-6 mb-3">
-					<label for="itemNumber" class="form-label">型番</label> <input type="text" required
+					<label for="itemNumber" class="form-label">型番</label> <input type="text" required maxlength="45"
 						th:field="*{modelNumber}" class="form-control" id="itemNumber" readonly>
 				</div>
 
 				<!-- 製品名 -->
 				<div class="col-md-6 mb-3">
-					<label for="itemName" class="form-label">製品名</label> <input type="text" required
+					<label for="itemName" class="form-label">製品名</label> <input type="text" maxlength="45" required
 						th:field="*{itemName}" class="form-control" id="itemName" placeholder="製品名を入力">
 				</div>
 
@@ -93,12 +93,12 @@
 				</div>
 
 				<div class="col-md-6 mb-3">
-					<label for="series" class="form-label">シリーズ</label> <input type="text" th:field="*{series}"
-						class="form-control" id="series" placeholder="シリーズを入力">
+					<label for="series" class="form-label">シリーズ</label> <input type="text" maxlength="45"
+						th:field="*{series}" class="form-control" id="series" placeholder="シリーズを入力">
 				</div>
 				<div class="col-md-6 mb-3">
-					<label for="original" class="form-label">原作品</label> <input type="text" th:field="*{original}"
-						class="form-control" id="original" placeholder="原作品を入力">
+					<label for="original" class="form-label">原作品</label> <input type="text" maxlength="45"
+						th:field="*{original}" class="form-control" id="original" placeholder="原作品を入力">
 				</div>
 				<div class="col-md-6 mb-3">
 					<label for="price" class="form-label">価格</label> <input type="number" th:field="*{price}"

@@ -79,11 +79,11 @@
 								</div>
 								<div class="col-sm">
 									<input type="text" class="form-control" placeholder="型番"
-										aria-label="modelNumber" th:field="*{ModelNumberInput}">
+										aria-label="modelNumber" maxlength = "45" th:field="*{ModelNumberInput}">
 								</div>
 								<div class="col-sm-7">
 									<input type="text" class="form-control" placeholder="製品名"
-										aria-label="itemName" th:field="*{itemNameInput}">
+										aria-label="itemName" maxlength = "45" th:field="*{itemNameInput}">
 								</div>
 							</div>
 							<div class="row g-1">
@@ -109,18 +109,13 @@
 								</div>
 								<div class="col-sm-7">
 									<input type="text" class="form-control" placeholder="シリーズ"
-										aria-label="series" th:field="*{seriesInput}">
+										aria-label="series" maxlength = "45" th:field="*{seriesInput}">
 								</div>
 							</div>
 							<div class="row g-1">
 								<div class="col-sm-6">
 									<input type="text" class="form-control" placeholder="原作名"
-										aria-label="orignal" th:field="*{originalInput}">
-								</div>
-
-								<div class="col">
-									<input type="text" class="form-control" placeholder="機体名"
-										aria-label="kitaimei">
+										aria-label="orignal" maxlength = "45" th:field="*{originalInput}">
 								</div>
 							</div>
 							<!-- 検索ボタン -->

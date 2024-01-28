@@ -25,13 +25,13 @@ public class Item {
 	private Integer itemId;
 
 	// 型番
-	@NotBlank
-	@Size(max = 45)
+	@NotBlank(message="必須項目です。")
+	@Size(max = 45, message="{max}文字以内で入力してください。")
 	private String modelNumber;
 
 	// 製品名
-	@NotBlank
-	@Size(max = 45)
+	@NotBlank(message="必須項目です。")
+	@Size(max = 45, message="{max}文字以内で入力してください。")
 	private String itemName;
 
 	// メーカーID
@@ -54,18 +54,18 @@ public class Item {
 	private String scale;
 
 	// シリーズ
-	@Size(max = 45)
+	@Size(max = 45, message="{max}文字以内で入力してください。")
 	private String series;
 
 	//原作品
-	@Size(max = 45)
+	@Size(max = 45, message="{max}文字以内で入力してください。")
 	private String original;
 
 	// 価格
 	private Integer price;
 
 	// 備考
-	@Size(max = 100)
+	@Size(max = 100, message="{max}文字以内で入力してください。")
 	private String note;
 	
 	// 既存製品マスターが存在するかカウント
