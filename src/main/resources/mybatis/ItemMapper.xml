@@ -24,7 +24,7 @@
 		scaleId,
 		ms.scale as scale,
 		mi.series as series,
-		mi.original as oroginal,
+		mi.original as original,
 		mi.price as price,
 		mi.note
 		as note,
@@ -68,7 +68,7 @@
 		mi.scale_id as scaleId,
 		ms.scale as scale,
 		mi.series as series,
-		mi.original as oroginal,
+		mi.original as original,
 		mi.price as price,
 		mi.note
 		as note,
@@ -146,7 +146,7 @@
 		mi.scale_id as scaleId,
 		ms.scale as scale,
 		mi.series as series,
-		mi.original as oroginal,
+		mi.original as original,
 		mi.price as price,
 		mi.note
 		as note,

@@ -161,7 +161,7 @@
 						<td>[[${item.scale}]]</td>
 						<td>[[${item.series}]]</td>
 						<td>[[${item.original}]]</td>
-						<td>[[${item.price}]]</td>
+						<td>[[${#numbers.formatInteger(item.price,3,'COMMA')}]]</td>
 
 						<td><a class="btn btn-success"
 							th:href="@{/items/inout/{itemId}(itemId=${item.itemId})}">入出庫</a></td>
